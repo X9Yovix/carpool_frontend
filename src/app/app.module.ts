@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { AuthInterceptor } from './components/shareed/auth.interceptor';
+import { AuthInterceptor } from './components/shareed/interceptors/auth.interceptor';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { FormsModule } from '@angular/forms';
@@ -13,9 +13,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CheckEmailComponent } from './components/auth/check-email/check-email.component';
 import { ResetPasswordComponent } from './components/auth/reset-password/reset-password.component';
 import {ForgotPasswordComponent} from "./components/auth/forgot-password/forgot-password.component";
-import {ToastrModule} from "ngx-toastr"; // Import ReactiveFormsModule
+import {ToastrModule} from "ngx-toastr";
+import { VerifyAccountComponent } from './components/auth/verify-account/verify-account.component';
+import { SpinnerComponent } from './components/shareed/spinner/spinner.component';
+import {LoadingInterceptor} from "./components/shareed/interceptors/LoadingInterceptor"; // Import ReactiveFormsModule
 
 @NgModule({
+  bootstrap: [AppComponent],
   declarations: [
     AppComponent,
     LoginComponent,
@@ -23,6 +27,8 @@ import {ToastrModule} from "ngx-toastr"; // Import ReactiveFormsModule
     CheckEmailComponent,
     ResetPasswordComponent,
     ForgotPasswordComponent,
+    VerifyAccountComponent,
+    SpinnerComponent,
 
   ],
   imports: [
@@ -36,11 +42,17 @@ import {ToastrModule} from "ngx-toastr"; // Import ReactiveFormsModule
     ReactiveFormsModule
 
   ],
-  providers: [{
-    provide: HTTP_INTERCEPTORS,
-    useClass: AuthInterceptor,
-    multi: true
-  }],
-  bootstrap: [AppComponent]
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoadingInterceptor,
+      multi: true,
+    },
+  ],
 })
 export class AppModule { }
