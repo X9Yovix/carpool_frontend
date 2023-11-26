@@ -47,7 +47,6 @@ export class AuthService {
     let api = `${this.endpoint}/register`;
     return this.http.post<any>(api, user).subscribe({
       next: (res) => {
-        console.log(res)
         if (res.http_code !== 200) {
           this.toastrService.error(res.errors);
           return;
@@ -56,7 +55,7 @@ export class AuthService {
         this.toastrService.success(res.message);
         this.router.navigateByUrl('/verify-account')
       },
-      error: (err) => {
+      error: () => {
         this.toastrService.error("This email is already associated with an account");
         this.handleError.bind(this)
         ;
@@ -69,12 +68,12 @@ export class AuthService {
     return this.http.put<any>(api, verifyRequest).subscribe({
       next: (res) => {
         if (res.http_code !== 200) {
-          this.toastrService.error(res.message);
+          this.toastrService.error(res.errors);
           return;
         }
         this.toastrService.success(res.message);
       },
-      error: (err) => {
+      error: () => {
         this.toastrService.error("An error has occurred");
         this.handleError.bind(this)
       }
@@ -99,7 +98,7 @@ export class AuthService {
             this.navigate();
           }
         },
-        error: (err) => {
+        error: () => {
           this.toastrService.error("An error occurred");
         }
       });
@@ -127,7 +126,7 @@ export class AuthService {
           this.router.navigate(['/check-email', forgotPasswordRequest.email]);
 
         },
-        error: (err) => {
+        error: () => {
           this.toastrService.error("An error occurred");
         }
       });
@@ -145,7 +144,7 @@ export class AuthService {
           this.router.navigateByUrl('/login');
           console.log(res);
         },
-        error: (err) => {
+        error: () => {
           this.toastrService.error("An error occurred");
         }
       });
@@ -171,7 +170,7 @@ export class AuthService {
 
   // Error
   handleError(error: HttpErrorResponse) {
-    let msg = '';
+    let msg !:string;
     if (error.error instanceof ErrorEvent) {
       // client-side error
       msg = error.error.message;

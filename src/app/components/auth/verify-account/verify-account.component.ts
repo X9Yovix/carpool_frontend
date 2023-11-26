@@ -16,13 +16,14 @@ export class VerifyAccountComponent implements OnInit {
   constructor(private authService: AuthService
     , private formBuilder: FormBuilder) {
   }
-
   get f(): { [key: string]: AbstractControl } {
     return this.verifyForm.controls;
   }
   ngOnInit(): void {
     this.verifyForm = this.formBuilder.group({
-        otp: ['', Validators.required]
+        otp: ['', Validators.required],
+        email: [localStorage.getItem("email"), [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
+
       }
     );
   }
@@ -34,7 +35,7 @@ export class VerifyAccountComponent implements OnInit {
       return;
     this.authService.verify(
       new VerifyRequest(
-        localStorage.getItem("email"),
+        this.verifyForm.value['email'],
         this.verifyForm.value['otp'])
     );
   }
