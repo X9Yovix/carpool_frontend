@@ -31,12 +31,10 @@ export class ForgotPasswordComponent  implements OnInit{
     return this.form.controls;
   }
   onSubmit(): void {
-    this.submitted = true;
     if (this.form.invalid) {
       return;
     }
     this.authService.forgotPassword(new ForgotPasswordRequest(this.f['email'].value));
-    this.router.navigate(['/check-email',this.f['email'].value]);
   }
 
 }

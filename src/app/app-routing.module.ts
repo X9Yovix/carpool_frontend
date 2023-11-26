@@ -10,11 +10,15 @@ import { RegisterComponent } from './components/auth/register/register.component
 import { CheckEmailComponent } from './components/auth/check-email/check-email.component';
 import {ForgotPasswordComponent} from "./components/auth/forgot-password/forgot-password.component";
 import {ResetPasswordComponent} from "./components/auth/reset-password/reset-password.component";
+import {VerifyAccountComponent} from "./components/auth/verify-account/verify-account.component";
+import {AddRideComponent} from "./components/driver/add-ride/add-ride.component";
 
 const routes: Routes = [
   { path: 'login',component:LoginComponent},
   { path: 'register',component:RegisterComponent},
   {path:'check-email/:email',component:CheckEmailComponent},
+  {path:'verify-account',component:VerifyAccountComponent},
+
   {path:'forgot-password',component:ForgotPasswordComponent},
   {path:'reset-password/:token',component:ResetPasswordComponent},
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -31,6 +35,13 @@ const routes: Routes = [
     role: 'DRIVER'
   }
 },
+  {
+    path: 'add-ride', component: AddRideComponent,
+    canActivate: [AuthGuard],
+    data: {
+      role: 'driver'
+    }
+  },
   { path: 'user', component: UserDashboardComponent,
     canActivate: [AuthGuard],
     data: {
@@ -38,6 +49,7 @@ const routes: Routes = [
     }
   },
   { path: '**', component: NotFoundComponent }
+
 
 ];
 @NgModule({

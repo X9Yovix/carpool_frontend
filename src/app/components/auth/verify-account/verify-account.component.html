@@ -1,0 +1,26 @@
+<form [formGroup]="verifyForm" (ngSubmit)="onSubmit()" class="container mt-4">
+  <div class="mb-3">
+    <label for="email" class="form-label">Email</label>
+    <input type="email"  class="form-control" id="email" formControlName="email">
+    <div
+      *ngIf="submitted && f['email'].errors"
+      class="invalid-feedback">
+      <div *ngIf="f['email'].errors?.['required']">
+        Email is required
+      </div>
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="otp" class="form-label">OTP code</label>
+    <input type="text" class="form-control" id="otp" formControlName="otp">
+    <div
+      *ngIf="submitted && f['otp'].errors"
+      class="invalid-feedback">
+      <div *ngIf="f['otp'].errors?.['required']">
+        OTP code is required
+      </div>
+    </div>
+  </div>
+
+  <button [disabled]="!verifyForm.valid" type="submit" class="btn btn-primary">Submit</button>
+</form>
