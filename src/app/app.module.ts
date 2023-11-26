@@ -16,7 +16,8 @@ import {ForgotPasswordComponent} from "./components/auth/forgot-password/forgot-
 import {ToastrModule} from "ngx-toastr";
 import { VerifyAccountComponent } from './components/auth/verify-account/verify-account.component';
 import { SpinnerComponent } from './components/shareed/spinner/spinner.component';
-import {LoadingInterceptor} from "./components/shareed/interceptors/LoadingInterceptor"; // Import ReactiveFormsModule
+import {LoadingInterceptor} from "./components/shareed/interceptors/LoadingInterceptor";
+import { AddRideComponent } from './components/driver/add-ride/add-ride.component'; // Import ReactiveFormsModule
 
 @NgModule({
   bootstrap: [AppComponent],
@@ -29,6 +30,7 @@ import {LoadingInterceptor} from "./components/shareed/interceptors/LoadingInter
     ForgotPasswordComponent,
     VerifyAccountComponent,
     SpinnerComponent,
+    AddRideComponent,
 
   ],
   imports: [

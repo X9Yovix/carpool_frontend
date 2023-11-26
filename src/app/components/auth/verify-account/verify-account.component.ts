@@ -20,6 +20,8 @@ export class VerifyAccountComponent implements OnInit {
     return this.verifyForm.controls;
   }
   ngOnInit(): void {
+    if(this.authService.getToken())
+      this.authService.navigate()
     this.verifyForm = this.formBuilder.group({
         otp: ['', Validators.required],
         email: [localStorage.getItem("email"), [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],

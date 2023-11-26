@@ -11,6 +11,7 @@ import { CheckEmailComponent } from './components/auth/check-email/check-email.c
 import {ForgotPasswordComponent} from "./components/auth/forgot-password/forgot-password.component";
 import {ResetPasswordComponent} from "./components/auth/reset-password/reset-password.component";
 import {VerifyAccountComponent} from "./components/auth/verify-account/verify-account.component";
+import {AddRideComponent} from "./components/driver/add-ride/add-ride.component";
 
 const routes: Routes = [
   { path: 'login',component:LoginComponent},
@@ -34,6 +35,13 @@ const routes: Routes = [
     role: 'DRIVER'
   }
 },
+  {
+    path: 'add-ride', component: AddRideComponent,
+    canActivate: [AuthGuard],
+    data: {
+      role: 'driver'
+    }
+  },
   { path: 'user', component: UserDashboardComponent,
     canActivate: [AuthGuard],
     data: {
@@ -41,6 +49,7 @@ const routes: Routes = [
     }
   },
   { path: '**', component: NotFoundComponent }
+
 
 ];
 @NgModule({
