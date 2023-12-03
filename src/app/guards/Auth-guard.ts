@@ -47,7 +47,6 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<u
           this.router.navigate(['/login']);
           return false;
         }
-
         return true;
       } else {
         console.error("User roles not available.");
@@ -55,7 +54,6 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<u
         return false;
       }
     }
-
     this.router.navigate(['/login']);
     return false;
   }

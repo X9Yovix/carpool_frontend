@@ -16,7 +16,34 @@ export class AuthService {
   endpoint: string = 'http://localhost:8089/api/auth';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
-  constructor(private toastrService: ToastrService, private http: HttpClient, public router: Router) {
+  constructor( private toastrService: ToastrService, private http: HttpClient, public router: Router) {
+  }
+
+  checkToken() {
+    const token = this.getToken();
+    if (token) {
+      try {
+        const jwtData = token.split('.')[1];
+        const decodedJwtJsonData = window.atob(jwtData);
+        const decodedJwtData = JSON.parse(decodedJwtJsonData);
+
+        if (decodedJwtData && decodedJwtData.exp) {
+          const expiryDate = new Date(decodedJwtData.exp*1000);
+          const currentDate = new Date();
+          console.log(expiryDate)
+          console.log(currentDate)
+          return expiryDate > currentDate;
+        } else {
+          console.error("Expiration not found in decoded JWT data.");
+          return false;
+        }
+      } catch (error) {
+        console.error("Error decoding JWT:", error);
+        return false;
+      }
+    }
+    console.error("Token is null.");
+    return false;
   }
 
   getRoles() {
@@ -156,21 +183,25 @@ export class AuthService {
 
   get isLoggedIn(): boolean {
     let authToken = localStorage.getItem('access_token');
-    return authToken !== null;
+    return (authToken !== null && this.checkToken());
+
   }
 
   doLogout() {
+    this.router.navigateByUrl('/login');
+    this.http.get<any>(`${this.endpoint}/logout`).subscribe(
+      (res: any) => {
+        this.toastrService.success("Logout successfully");
+      }
+    )
     localStorage.removeItem('access_token');
     localStorage.removeItem('first-name');
     localStorage.removeItem('last-name');
-    this.toastrService.success("Logout successfully")
-    this.router.navigateByUrl('/login');
-
   }
 
   // Error
   handleError(error: HttpErrorResponse) {
-    let msg !:string;
+    let msg !: string;
     if (error.error instanceof ErrorEvent) {
       // client-side error
       msg = error.error.message;
