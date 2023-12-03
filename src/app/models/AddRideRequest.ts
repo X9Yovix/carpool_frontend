@@ -1,16 +1,15 @@
 export class AddRideRequest{
-  depart!: string;
-  arrive!: string;
-  nombrePlace!: number;
+  departureLocation!: string;
+  destinationLocation!: string;
   price!: number;
-  time!: string;
-
-  constructor(depart:string,arrive:string,nb:number,price:number,time:string) {
-    this.depart=depart;
-    this.arrive=arrive;
-    this.nombrePlace=nb;
+  departureDate!: Date;
+  cardId:number;
+  constructor(departureLocation:string,destinationLocation:string,price:number,date:Date,carId:number) {
+    this.departureLocation=departureLocation;
+    this.destinationLocation=destinationLocation;
     this.price=price;
-    this.time=time;
+    this.departureDate=date;
+    this.cardId=carId
   }
 
 

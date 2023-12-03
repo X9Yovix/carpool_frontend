@@ -18,7 +18,12 @@ import {AddRideComponent} from "./components/driver/add-ride/add-ride.component"
 import {VerifyAccountComponent} from "./components/auth/verify-account/verify-account.component";
 import {HeaderComponent} from "./components/layout/header/header.component";
 import {FooterComponent} from "./components/layout/footer/footer.component";
-import {SpinnerComponent} from "./components/shareed/spinner/spinner.component"; // Import ReactiveFormsModule
+import {SpinnerComponent} from "./components/shareed/spinner/spinner.component";
+import { RideComponent } from './components/user/ride/ride.component';
+import {MatInputModule} from "@angular/material/input";
+import {DriverDashboardComponent} from "./components/driver/driverDashboard/driverDashboard.component";
+import { AddCarComponent } from './components/driver/add-car/add-car.component';
+import { ListCarsComponent } from './components/driver/list-cars/list-cars.component'; // Import ReactiveFormsModule
 
 @NgModule({
   declarations: [
@@ -32,20 +37,25 @@ import {SpinnerComponent} from "./components/shareed/spinner/spinner.component";
     VerifyAccountComponent,
     HeaderComponent,
     FooterComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    RideComponent,
+    DriverDashboardComponent,
+    AddCarComponent,
+    ListCarsComponent
 
   ],
-  imports: [
-    ToastrModule.forRoot(),
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    FormsModule,
-    BrowserModule,
-    ReactiveFormsModule
+    imports: [
+        ToastrModule.forRoot(),
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        FormsModule,
+        BrowserModule,
+        ReactiveFormsModule,
+        MatInputModule
 
-  ],
+    ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
