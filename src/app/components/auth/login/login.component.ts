@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
   userForm!: FormGroup;
 
   ngOnInit() {
-    if (this.authservice.getToken()!= null)
+    if (this.authservice.getToken())
       this.authservice.navigate();
 
       this.userForm = this.formBuilder.group({
@@ -23,7 +23,6 @@ export class LoginComponent implements OnInit {
       });
 
   }
-
   onLogin(){
     if (this.userForm.invalid) {
       return;

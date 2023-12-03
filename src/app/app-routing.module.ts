@@ -12,6 +12,10 @@ import {ForgotPasswordComponent} from "./components/auth/forgot-password/forgot-
 import {ResetPasswordComponent} from "./components/auth/reset-password/reset-password.component";
 import {VerifyAccountComponent} from "./components/auth/verify-account/verify-account.component";
 import {AddRideComponent} from "./components/driver/add-ride/add-ride.component";
+import {HeaderComponent} from "./components/layout/header/header.component";
+import {RideComponent} from "./components/user/ride/ride.component";
+import {AddCarComponent} from "./components/driver/add-car/add-car.component";
+import {ListCarsComponent} from "./components/driver/list-cars/list-cars.component";
 
 const routes: Routes = [
   { path: 'login',component:LoginComponent},
@@ -35,8 +39,30 @@ const routes: Routes = [
     role: 'DRIVER'
   }
 },
+  { path: 'rides', component: RideComponent,
+    data: {
+      role: 'USER'
+    }
+
+  },
+
+  {path:'header',component:HeaderComponent},
   {
     path: 'add-ride', component: AddRideComponent,
+    canActivate: [AuthGuard],
+    data: {
+      role: 'driver'
+    }
+  },
+  {
+    path: 'add-car', component: AddCarComponent,
+    canActivate: [AuthGuard],
+    data: {
+      role: 'driver'
+    }
+  },
+  {
+    path: 'list-car', component: ListCarsComponent,
     canActivate: [AuthGuard],
     data: {
       role: 'driver'

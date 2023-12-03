@@ -1,0 +1,26 @@
+<div class="container mt-4">
+  <h2>Add Car</h2>
+  <form [formGroup]="carForm" (ngSubmit)="addCar()">
+    <div class="form-group">
+      <label for="carBrand">Car Brand:</label>
+      <input type="text" class="form-control" id="carBrand" formControlName="carBrand">
+    </div>
+
+    <div class="form-group">
+      <label for="carModel">Car Model:</label>
+      <input type="text" class="form-control" id="carModel" formControlName="carModel">
+    </div>
+
+    <div class="form-group">
+      <label for="carColor">Car Color:</label>
+      <input type="text" class="form-control" id="carColor" formControlName="carColor">
+    </div>
+
+    <div class="form-group">
+      <label for="carSeats">Car Seats:</label>
+      <input type="number" class="form-control" id="carSeats" formControlName="carSeats">
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="carForm.invalid">Add Car</button>
+  </form>
+</div>

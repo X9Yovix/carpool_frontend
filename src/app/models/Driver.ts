@@ -1,12 +1,10 @@
-import {User} from "./User";
-
-export class Ride{
+export class Driver{
   id!:string;
   departureLocation!:string;
   destinationLocation!:string;
   departureDate!:number;
   price!:number;
   status!:any;
-  driver!:User;
+  driver!:any;
 
 }

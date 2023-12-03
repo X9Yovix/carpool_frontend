@@ -1,46 +1,49 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Observable, throwError} from "rxjs";
 import {Ride} from "../../models/Ride";
-import {UpdateRideRequest} from "../../models/UpdateRideRequest";
 import {AddRideRequest} from "../../models/AddRideRequest";
+import {FilterRideRequest} from "../../models/FilterRideRequest";
 
 @Injectable({
   providedIn: 'root'
 })
 export class RideService {
 
-  private baseUrl = 'http://localhost:8089/api/ride';
+  private apiUrl = 'http://localhost:8089/api/rides';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
   constructor(private http: HttpClient) { }
-
-  addRide(addRideRequest: AddRideRequest): Observable<Ride> {
-    return this.http.post<Ride>(`${this.baseUrl}/add`, addRideRequest);
+  createRide(request: AddRideRequest): Observable<Object> {
+    const url = `${this.apiUrl}/driver`;
+    return this.http.post(url, request);
   }
 
-  findByDepart(depart: string): Observable<Ride[]> {
-    return this.http.get<Ride[]>(`${this.baseUrl}/find/depart/${depart}`);
+  getRidesCreatedByAuthenticatedDriver(): Observable<Ride[]> {
+    const url = `${this.apiUrl}/driver`;
+    return this.http.get<Ride[]>(url);
   }
 
-  findByArrive(arrive: string): Observable<Ride[]> {
-    return this.http.get<Ride[]>(`${this.baseUrl}/find/arrive/${arrive}`);
+  filterRides(request: FilterRideRequest, page: number, size: number): Observable<Ride[]> {
+    const url = `${this.apiUrl}/filter`;
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString());
+
+    // @ts-ignore
+    return this.http.get<Ride[]>(url,  { params: {
+        params,
+        request,
+      }});
   }
 
-  findByTime(time: string): Observable<Ride[]> {
-    return this.http.get<Ride[]>(`${this.baseUrl}/find/date/${time}`);
-  }
+  getLatestRides(page: number, size: number): Observable<Ride[]> {
+    const url = `${this.apiUrl}/latest`;
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString());
 
-  findAllRides(): Observable<Ride[]> {
-    return this.http.get<Ride[]>(`${this.baseUrl}/find/all`);
-  }
-
-  updateRide(id: number, ride: UpdateRideRequest): Observable<Ride> {
-    return this.http.put<Ride>(`${this.baseUrl}/update/${id}`, ride);
-  }
-
-  deleteRide(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/delete/${id}`);
+    return this.http.get<Ride[]>(url, {params});
   }
 
   handleError(error: HttpErrorResponse) {
