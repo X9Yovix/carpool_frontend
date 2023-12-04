@@ -3,6 +3,8 @@ import {HttpClient} from "@angular/common/http";
 import {RideService} from "../../../services/ride/ride.service";
 import {RideInfo} from "../../../models/RideInfo";
 import {RideRequestService} from "../../../services/ride/ride-request.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FilterRideRequest} from "../../../models/FilterRideRequest";
 
 @Component({
   selector: 'app-ride',
@@ -12,10 +14,18 @@ import {RideRequestService} from "../../../services/ride/ride-request.service";
 export class RideComponent implements OnInit {
   rides!: RideInfo[];
   page = 0;
+  rideFilterForm!: FormGroup;
 
 
   ngOnInit(): void {
     this.getRides();
+    this.rideFilterForm = this.fb.group({
+      departure: [''],
+      destination: [''],
+      status: [''],
+      minPrice: ['', Validators.pattern('^\d{1,3}(?:\.\d{1,2})?$')],
+      maxPrice: ['', Validators.pattern('^\d{1,3}(?:\.\d{1,2})?$')]
+    });
   }
 
   getRides() {
@@ -25,7 +35,7 @@ export class RideComponent implements OnInit {
       });
   }
 
-  constructor(private http: HttpClient, private rideService: RideService, private rideRequestService: RideRequestService) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private rideService: RideService, private rideRequestService: RideRequestService) {
 
   }
 
@@ -52,5 +62,23 @@ export class RideComponent implements OnInit {
       }
     )
 
+  }
+
+  getFiltredRide() {
+    this.rideService.filterRides(
+      new FilterRideRequest(
+        this.rideFilterForm.value['departure'],
+        this.rideFilterForm.value['destination'],
+        this.rideFilterForm.value['status'],
+        this.rideFilterForm.value['minPrice'],
+        this.rideFilterForm.value['maxPrice']
+      ), this.page, 10).subscribe(
+      (res: any) => {
+        if (res.http_code != 200)
+          console.log("Erreur");
+        else
+          this.rides = res.rides
+      }
+    )
   }
 }
