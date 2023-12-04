@@ -15,6 +15,7 @@ import {AddRideComponent} from "./components/driver/add-ride/add-ride.component"
 import {RideComponent} from "./components/user/ride/ride.component";
 import {AddCarComponent} from "./components/driver/add-car/add-car.component";
 import {ListCarsComponent} from "./components/driver/list-cars/list-cars.component";
+import {RequestedRidesComponent} from "./components/driver/requested-rides/requested-rides.component";
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -43,7 +44,9 @@ const routes: Routes = [
     children: [
       {path: 'add-ride', component: AddRideComponent},
       {path: 'add-car', component: AddCarComponent},
-      {path: 'list-car', component: ListCarsComponent}
+      {path: 'list-car', component: ListCarsComponent},
+      {path: 'requested-rides', component: RequestedRidesComponent}
+
     ]
   },
   {
