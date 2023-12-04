@@ -31,8 +31,6 @@ export class AuthService {
         if (decodedJwtData && decodedJwtData.exp) {
           const expiryDate = new Date(decodedJwtData.exp*1000);
           const currentDate = new Date();
-          console.log(expiryDate)
-          console.log(currentDate)
           return expiryDate > currentDate;
         } else {
           console.error("Expiration not found in decoded JWT data.");
@@ -78,7 +76,7 @@ export class AuthService {
           this.toastrService.error(res.errors);
           return;
         }
-        //localStorage.setItem("email", user.email); // for the OTP REQUEST
+  //OTP
         this.localService.saveData("email",user.email);
         this.toastrService.success(res.message);
         this.router.navigateByUrl('/verify-account')
@@ -119,9 +117,6 @@ export class AuthService {
             return;
           }
           if (res.token) {
-            // localStorage.setItem('access_token', res.token);
-            // localStorage.setItem('first-name', res.firstName);
-            // localStorage.setItem('last-name', res.lastName);
             this.localService.saveData('access_token', res.token);
             this.localService.saveData('first-name', res.firstName);
             this.localService.saveData('last-name', res.lastName);
@@ -173,7 +168,6 @@ export class AuthService {
           }
           this.toastrService.success("Password changed successfully");
           this.router.navigateByUrl('/login');
-          console.log(res);
         },
         error: () => {
           this.toastrService.error("An error occurred");
@@ -183,11 +177,9 @@ export class AuthService {
 
   getToken() {
     return this.localService.getData('access_token');
-    //return localStorage.getItem('access_token');
   }
 
   get isLoggedIn(): boolean {
-    //let authToken = localStorage.getItem('access_token');
     let authToken = this.localService.getData('access_token');
     return (authToken !== null && this.checkToken());
 
@@ -196,13 +188,10 @@ export class AuthService {
   doLogout() {
     this.router.navigateByUrl('/login');
     this.http.get<any>(`${this.endpoint}/logout`).subscribe(
-      (res: any) => {
+      () => {
         this.toastrService.success("Logout successfully");
       }
     )
-    // localStorage.removeItem('access_token');
-    // localStorage.removeItem('first-name');
-    // localStorage.removeItem('last-name');
     this.localService.clearData();
   }
 

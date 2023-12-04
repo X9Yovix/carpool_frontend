@@ -19,7 +19,10 @@
             <th>Departure Location</th>
             <th>Destination Location</th>
             <th>Departure Date</th>
-            <th>Status</th>
+            <th>Request Date</th>
+            <th>Ride Status</th>
+            <th>Ride Request Status</th>
+
           </tr>
           </thead>
           <tbody>
@@ -28,21 +31,19 @@
             <td>{{ ride.departureLocation }}</td>
             <td>{{ ride.destinationLocation }}</td>
             <td>{{ ride.departureDate | date:'short' }}</td>
+            <td>{{ ride.requestDate | date:'short' }}</td>
             <td *ngIf="ride.statusRide=='ACTIVE'"><span class="status text-success">&bull;</span> Active</td>
+            <td *ngIf="ride.statusRide=='COMPLETED'"><span class="status text-success">&bull;</span> Active</td>
+            <td *ngIf="ride.statusRide=='CANCELED'"><span class="status text-success">&bull;</span> Active</td>
 
-            <td *ngIf="ride.statusRide=='CANCELED'"><span class="status text-danger-emphasis">&bull;</span> Inactive</td>
+            <td *ngIf="ride.statusRideRequest=='DECLINED'"><span class="status text-danger">&bull;</span> Inactive</td>
 
-            <td *ngIf="ride.statusRide=='COMPLETED'"><span class="status text-danger">&bull;</span>Completed</td>
+            <td *ngIf="ride.statusRideRequest=='ACCEPTED'"><span class="status text-success">&bull;</span> Active</td>
+
+            <td *ngIf="ride.statusRideRequest=='PENDING'"><span class="status text-danger">&bull;</span> Inactive</td>
+
 
             <td>
-              <a [routerLink]="[]" (click)="confirm(ride.id)" title="confirm" data-toggle="tooltip"><span class="material-symbols-outlined">
-do_not_disturb_on
-</span>
-              </a>
-              <a [routerLink]="[]" (click)="decline(ride.id)" class="decline" title="decline" data-toggle="tooltip"><span class="material-symbols-outlined">
-delete
-</span></a>
-
             </td>
           </tr>
           </tbody>
@@ -50,11 +51,11 @@ delete
         <div class="clearfix">
           <ul class="pagination">
             <li class="page-item"><button (click)="previousPage()" class="page-link">Previous</button></li>
-
             <li  *ngFor="let number of [0,1,2,3] ;" class="page-item" [ngClass]="{ 'page-item active' :page==number}"><button (click)="goToPage(number)" class="page-link">{{number+1}}</button></li>
             <li class="page-item"><button [disabled]="rides.length<10" (click)="nextPage()" class="page-link">Next</button></li>
           </ul>
         </div>
+
       </div>
     </div>
   </div>

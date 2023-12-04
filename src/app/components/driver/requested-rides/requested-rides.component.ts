@@ -35,7 +35,6 @@ export class RequestedRidesComponent implements OnInit {
       this.page--;
       this.getRequestedRides()
     }
-
   }
 
   nextPage() {
@@ -47,30 +46,33 @@ export class RequestedRidesComponent implements OnInit {
 
   goToPage(number: number) {
     if (this.page != number) {
-      this.page = number;
       this.getRequestedRides()
     }
   }
 
-  confirm(id:number) {
+  confirm(id: number) {
     this.rideRequestService.acceptRideRequest(id).subscribe(
-      (res:any)=>{
-        if(res.http_code!=200)
+      (res: any) => {
+        if (res.http_code != 200)
           this.toaster.error("Error")
-        else
+        else {
           this.toaster.success("Ride Request Accepted");
+          this.rides = this.rides.filter((r) => r.id != id);
+        }
       }
     )
   }
 
-  decline(id:number) {
-  this.rideRequestService.declineRideRequest(id).subscribe(
-    (res:any)=>{
-      if(res.http_code!=200)
-        this.toaster.error("Error")
-      else
-        this.toaster.success("Ride Request Declined");
-    }
-  )
+  decline(id: number) {
+    this.rideRequestService.declineRideRequest(id).subscribe(
+      (res: any) => {
+        if (res.http_code != 200)
+          this.toaster.error("Error")
+        else {
+          this.toaster.warning("Ride Request Declined");
+          this.rides = this.rides.filter((r) => r.id != id);
+        }
+      }
+    )
   }
 }

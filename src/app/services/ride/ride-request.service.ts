@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {ApplyForRideRequest} from "../../models/ApplyForRideRequest";
 import {ToastrService} from "ngx-toastr";
 import {Router} from "@angular/router";
 
@@ -17,9 +16,9 @@ export class RideRequestService {
 
   constructor(private toastrService: ToastrService, private http: HttpClient, public router: Router) { }
 
-  applyForRide(request: ApplyForRideRequest): Observable<Object> {
+  applyForRide(rideId:number): Observable<Object> {
     const url = `${this.apiUrl}/passenger/apply`;
-    return this.http.post(url, request);
+    return this.http.post(url, rideId);
   }
   getAppliedRides(page: number, size: number, status?: string): Observable<Object> {
     const url = `${this.apiUrl}/passenger/applied`;
