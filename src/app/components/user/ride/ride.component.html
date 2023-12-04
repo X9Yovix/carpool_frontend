@@ -12,7 +12,34 @@
             </div>
           </div>
         </div>
-        <table class="table table-striped table-hover">
+        <div [formGroup]="rideFilterForm" class="container mt-5">
+            <div class="form-group">
+              <label for="departure">Departure</label>
+              <input formControlName="departure" type="text" class="form-control" id="departure" name="departure">
+            </div>
+            <div class="form-group">
+              <label for="destination">Destination</label>
+              <input formControlName="destination" type="text" class="form-control" id="destination" name="destination">
+            </div>
+            <div class="form-group">
+              <label for="status">Status</label>
+              <select formControlName="status" class="form-control" id="status" name="status">
+                <option value="ACTIVE">Active</option>
+                <option value="CANCELED">Canceled</option>
+                <option value="COMPLETED">Completed</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="minPrice">Min Price</label>
+              <input formControlName="minPrice" type="number" class="form-control" id="minPrice" name="minPrice">
+            </div>
+            <div class="form-group">
+              <label for="maxPrice">Max Price</label>
+              <input formControlName="maxPrice" type="number" class="form-control" id="maxPrice" name="maxPrice">
+            </div>
+            <button type="button" (click)="getFiltredRide()" class="btn btn-primary">Request</button>
+
+            <table class="table table-striped table-hover">
           <thead>
           <tr>
             <th>#</th>
@@ -53,4 +80,5 @@
       </div>
     </div>
   </div>
+</div>
 </div>

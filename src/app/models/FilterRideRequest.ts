@@ -1,17 +1,17 @@
+
 export class FilterRideRequest{
-  depart!: string;
-  arrive!: string;
-  nombrePlace!: number;
-  price!: number;
-  time!: string;
+  departure!: string;
+  destination!: string;
+  status!: string;
+  minPrice!: string;
+  maxPrice!: string;
 
-  constructor(depart:string,arrive:string,nb:number,price:number,time:string) {
-    this.depart=depart;
-    this.arrive=arrive;
-    this.nombrePlace=nb;
-    this.price=price;
-    this.time=time;
+
+  constructor(departure: string, destination: string, status: string, minPrice: string, maxPrice: string) {
+    this.departure = departure;
+    this.destination = destination;
+    this.status = status;
+    this.minPrice = minPrice;
+    this.maxPrice = maxPrice;
   }
-
-
 }
