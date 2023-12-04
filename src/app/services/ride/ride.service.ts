@@ -49,4 +49,5 @@ export class RideService {
 
     return this.http.get<Ride[]>(url, {params});
   }
+
 }
