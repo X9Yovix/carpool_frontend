@@ -17,6 +17,7 @@ import {AddCarComponent} from "./components/driver/add-car/add-car.component";
 import {ListCarsComponent} from "./components/driver/list-cars/list-cars.component";
 import {RequestedRidesComponent} from "./components/driver/requested-rides/requested-rides.component";
 import {AppliedRidesComponent} from "./components/user/applied-rides/applied-rides.component";
+import {ListDriverRidesComponent} from "./components/driver/list-driver-rides/list-driver-rides.component";
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -46,8 +47,8 @@ const routes: Routes = [
       {path: 'add-ride', component: AddRideComponent},
       {path: 'add-car', component: AddCarComponent},
       {path: 'list-car', component: ListCarsComponent},
-      {path: 'requested-rides', component: RequestedRidesComponent}
-
+      {path: 'requested-rides', component: RequestedRidesComponent},
+      {path: 'list-driver-rides', component: ListDriverRidesComponent}
     ]
   },
   {

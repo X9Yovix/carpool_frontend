@@ -26,7 +26,8 @@ import { AddCarComponent } from './components/driver/add-car/add-car.component';
 import { ListCarsComponent } from './components/driver/list-cars/list-cars.component';
 import {UserDashboardComponent} from "./components/user/userDashboard/userDashboard.component";
 import { RequestedRidesComponent } from './components/driver/requested-rides/requested-rides.component';
-import { AppliedRidesComponent } from './components/user/applied-rides/applied-rides.component'; // Import ReactiveFormsModule
+import { AppliedRidesComponent } from './components/user/applied-rides/applied-rides.component';
+import { ListDriverRidesComponent } from './components/driver/list-driver-rides/list-driver-rides.component'; // Import ReactiveFormsModule
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { AppliedRidesComponent } from './components/user/applied-rides/applied-r
     ListCarsComponent,
     UserDashboardComponent,
     RequestedRidesComponent,
-    AppliedRidesComponent
+    AppliedRidesComponent,
+    ListDriverRidesComponent
 
   ],
     imports: [
