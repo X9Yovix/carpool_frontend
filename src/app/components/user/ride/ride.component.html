@@ -35,8 +35,8 @@
           <td *ngIf="ride.status=='COMPLETED'"><span class="status text-danger">&bull;</span>Completed</td>
 
           <td>
-            <a href="#" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
-            <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#e88e;</i></a>
+            <a href="#" class="delete" title="Delete" data-toggle="tooltip"><span class="material-symbols-outlined">loyalty
+</span></a>
           </td>
         </tr>
         </tbody>
@@ -46,7 +46,7 @@
         <li class="page-item"><button (click)="previousPage()" class="page-link">Previous</button></li>
 
         <ul class="pagination" *ngFor="let number of [1,2,3,4] ;">
-          <li class="page-item"[ngClass]="{ 'page-item active' :page===number, 'page-item':page!==number }"><button (click)="goToPage(number)" class="page-link">{{number}}</button></li>
+          <li class="page-item" [ngClass]="{ 'page-item active' :page===number, 'page-item':page!==number }"><button (click)="goToPage(number)" class="page-link">{{number}}</button></li>
         </ul>
         <li class="page-item"><button (click)="nextPage()" class="page-link">Next</button></li>
         </ul>

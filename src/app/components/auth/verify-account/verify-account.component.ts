@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../../services/auth/auth.service";
 import {VerifyRequest} from "../../../models/VerifyRequest";
 import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {LocalService} from "../../../services/encryption/local.service";
 
 
 @Component({
@@ -14,7 +15,8 @@ export class VerifyAccountComponent implements OnInit {
   submitted = false;
 
   constructor(private authService: AuthService
-    , private formBuilder: FormBuilder) {
+    , private formBuilder: FormBuilder,
+  private localService:LocalService) {
   }
   get f(): { [key: string]: AbstractControl } {
     return this.verifyForm.controls;
@@ -24,7 +26,7 @@ export class VerifyAccountComponent implements OnInit {
       this.authService.navigate()
     this.verifyForm = this.formBuilder.group({
         otp: ['', Validators.required],
-        email: [localStorage.getItem("email"), [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
+        email: [this.localService.getData("email"), [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
 
       }
     );

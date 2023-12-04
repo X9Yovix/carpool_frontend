@@ -8,6 +8,7 @@ import {ResetPasswordRequest} from "../../models/ResetPasswordRequest";
 import {ForgotPasswordRequest} from "../../models/ForgotPasswordRequest";
 import {ToastrService} from "ngx-toastr";
 import {VerifyRequest} from "../../models/VerifyRequest";
+import {LocalService} from "../encryption/local.service";
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class AuthService {
   endpoint: string = 'http://localhost:8089/api/auth';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
-  constructor( private toastrService: ToastrService, private http: HttpClient, public router: Router) {
+  constructor(private localService:LocalService,private toastrService: ToastrService, private http: HttpClient, public router: Router) {
   }
 
   checkToken() {
@@ -42,7 +43,6 @@ export class AuthService {
         return false;
       }
     }
-    console.error("Token is null.");
     return false;
   }
 
@@ -78,7 +78,8 @@ export class AuthService {
           this.toastrService.error(res.errors);
           return;
         }
-        localStorage.setItem("email", user.email); // for the OTP REQUEST
+        //localStorage.setItem("email", user.email); // for the OTP REQUEST
+        this.localService.saveData("email",user.email);
         this.toastrService.success(res.message);
         this.router.navigateByUrl('/verify-account')
       },
@@ -118,9 +119,12 @@ export class AuthService {
             return;
           }
           if (res.token) {
-            localStorage.setItem('access_token', res.token);
-            localStorage.setItem('first-name', res.firstName);
-            localStorage.setItem('last-name', res.lastName);
+            // localStorage.setItem('access_token', res.token);
+            // localStorage.setItem('first-name', res.firstName);
+            // localStorage.setItem('last-name', res.lastName);
+            this.localService.saveData('access_token', res.token);
+            this.localService.saveData('first-name', res.firstName);
+            this.localService.saveData('last-name', res.lastName);
             this.toastrService.success(res.message);
             this.navigate();
           }
@@ -178,11 +182,13 @@ export class AuthService {
   }
 
   getToken() {
-    return localStorage.getItem('access_token');
+    return this.localService.getData('access_token');
+    //return localStorage.getItem('access_token');
   }
 
   get isLoggedIn(): boolean {
-    let authToken = localStorage.getItem('access_token');
+    //let authToken = localStorage.getItem('access_token');
+    let authToken = this.localService.getData('access_token');
     return (authToken !== null && this.checkToken());
 
   }
@@ -194,9 +200,10 @@ export class AuthService {
         this.toastrService.success("Logout successfully");
       }
     )
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('first-name');
-    localStorage.removeItem('last-name');
+    // localStorage.removeItem('access_token');
+    // localStorage.removeItem('first-name');
+    // localStorage.removeItem('last-name');
+    this.localService.clearData();
   }
 
   // Error

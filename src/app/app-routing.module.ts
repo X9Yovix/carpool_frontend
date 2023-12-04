@@ -28,6 +28,7 @@ const routes: Routes = [
   {
     path: 'admin', component: AdminDashboardComponent,
     canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
     data: {
       role: 'ADMIN'
     }
@@ -40,7 +41,6 @@ const routes: Routes = [
       role: 'DRIVER'
     },
     children: [
-      {path: 'rides', component: RideComponent},
       {path: 'add-ride', component: AddRideComponent},
       {path: 'add-car', component: AddCarComponent},
       {path: 'list-car', component: ListCarsComponent}
@@ -49,9 +49,13 @@ const routes: Routes = [
   {
     path: 'user', component: UserDashboardComponent,
     canActivate: [AuthGuard],
+    canActivateChild:[AuthGuard],
     data: {
       role: 'PASSENGER'
-    }
+    },
+    children: [
+      {path: 'rides', component: RideComponent},
+    ]
   },
   {path: '**', component: NotFoundComponent}
 

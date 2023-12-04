@@ -23,7 +23,9 @@ import { RideComponent } from './components/user/ride/ride.component';
 import {MatInputModule} from "@angular/material/input";
 import {DriverDashboardComponent} from "./components/driver/driverDashboard/driverDashboard.component";
 import { AddCarComponent } from './components/driver/add-car/add-car.component';
-import { ListCarsComponent } from './components/driver/list-cars/list-cars.component'; // Import ReactiveFormsModule
+import { ListCarsComponent } from './components/driver/list-cars/list-cars.component';
+import {UserDashboardComponent} from "./components/user/userDashboard/userDashboard.component";
+import { RequestedRidesComponent } from './components/driver/requested-rides/requested-rides.component'; // Import ReactiveFormsModule
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { ListCarsComponent } from './components/driver/list-cars/list-cars.compo
     RideComponent,
     DriverDashboardComponent,
     AddCarComponent,
-    ListCarsComponent
+    ListCarsComponent,
+    UserDashboardComponent,
+    RequestedRidesComponent
 
   ],
     imports: [
