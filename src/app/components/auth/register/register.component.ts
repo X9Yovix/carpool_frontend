@@ -20,6 +20,8 @@ export class RegisterComponent implements OnInit {
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
       password: ['', [Validators.required, Validators.minLength(8)]],
+      address: ['', Validators.required],
+      phoneNumber: ['', Validators.required],
       roles: this.formBuilder.array([], [Validators.required]),
     });
   }
@@ -32,7 +34,7 @@ export class RegisterComponent implements OnInit {
     }
     let roles = [];
     roles.push(this.registerForm.value['role']);
-    this.authservice.register(new RegisterRequest(this.registerForm.value['firstName'], this.registerForm.value['lastName'], this.registerForm.value['email'], this.registerForm.value['password'], this.registerForm.value['roles']));
+    this.authservice.register(new RegisterRequest(this.registerForm.value['firstName'], this.registerForm.value['lastName'], this.registerForm.value['email'], this.registerForm.value['password'],this.registerForm.value['address'],this.registerForm.value['phoneNumber'], this.registerForm.value['roles']));
   }
 
   onCheckboxChange(e: any) {

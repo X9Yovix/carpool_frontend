@@ -1,26 +1,40 @@
-<div class="container mt-4">
-  <h2>Add Car</h2>
-  <form [formGroup]="carForm" (ngSubmit)="addCar()">
-    <div class="form-group">
-      <label for="carBrand">Car Brand:</label>
-      <input type="text" class="form-control" id="carBrand" formControlName="carBrand">
+<form class="row" [formGroup]="carForm" (ngSubmit)="addCar()">
+  <div class="col-lg-6">
+    <!--<label class="cs-form_label">Car Brand:</label>-->
+    <div class="cs-form_field_wrap">
+      <input type="text" class="cs-form_field" placeholder="Car Brand" id="carBrand" formControlName="carBrand"
+        name="carBrand">
     </div>
+    <div class="cs-height_20 cs-height_lg_20"></div>
 
-    <div class="form-group">
-      <label for="carModel">Car Model:</label>
-      <input type="text" class="form-control" id="carModel" formControlName="carModel">
+    <!--<label class="cs-form_label">Car Model</label>-->
+    <div class="cs-form_field_wrap">
+      <input type="text" class="cs-form_field" placeholder="Car Model" id="carModel" formControlName="carModel"
+        name="carModel">
     </div>
+    <div class="cs-height_20 cs-height_lg_20"></div>
+  </div>
 
-    <div class="form-group">
-      <label for="carColor">Car Color:</label>
-      <input type="text" class="form-control" id="carColor" formControlName="carColor">
+  <div class="col-lg-6">
+    <span class="cs-btn cs-style2 cs-btn_lg w-100">
+      <span class="text-left">
+        <i class="fas fa-brush"></i>
+        <span>Car Color</span>
+        <input type="color" placeholder="Car Color" id="carColor" formControlName="carColor" name="carColor">
+      </span>
+    </span>
+    <div class="cs-height_20 cs-height_lg_20"></div>
+
+    <!--<label class="cs-form_label">Car Seats</label>-->
+    <div class="cs-form_field_wrap">
+      <input type="number" class="cs-form_field" placeholder="Car Seats" id="carSeats" formControlName="carSeats"
+        name="carSeats">
     </div>
+    <div class="cs-height_20 cs-height_lg_20"></div>
+  </div>
 
-    <div class="form-group">
-      <label for="carSeats">Car Seats:</label>
-      <input type="number" class="form-control" id="carSeats" formControlName="carSeats">
-    </div>
-
-    <button type="submit" class="btn btn-primary" [disabled]="carForm.invalid">Add Car</button>
-  </form>
-</div>
+  <div class="col-lg-12">
+    <div class="cs-height_30 cs-height_lg_30"></div>
+    <button class="cs-btn cs-style1 cs-btn_lg" [disabled]="carForm.invalid" type="submit"><span>Add Car</span></button>
+  </div>
+</form>
