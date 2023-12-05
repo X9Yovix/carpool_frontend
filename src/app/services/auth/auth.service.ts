@@ -1,14 +1,15 @@
-import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {Router} from '@angular/router';
-import {throwError} from 'rxjs';
-import {LoginRequest} from 'src/app/models/LoginRequest';
-import {RegisterRequest} from 'src/app/models/RegisterRequest';
-import {ResetPasswordRequest} from "../../models/ResetPasswordRequest";
-import {ForgotPasswordRequest} from "../../models/ForgotPasswordRequest";
-import {ToastrService} from "ngx-toastr";
-import {VerifyRequest} from "../../models/VerifyRequest";
-import {LocalService} from "../encryption/local.service";
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { throwError } from 'rxjs';
+import { LoginRequest } from 'src/app/models/LoginRequest';
+import { RegisterRequest } from 'src/app/models/RegisterRequest';
+import { ResetPasswordRequest } from "../../models/ResetPasswordRequest";
+import { ForgotPasswordRequest } from "../../models/ForgotPasswordRequest";
+import { ToastrService } from "ngx-toastr";
+import { VerifyRequest } from "../../models/VerifyRequest";
+import { LocalService } from "../encryption/local.service";
+import { RegenerateTokenRequest } from 'src/app/models/RegenerateTokenRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class AuthService {
   endpoint: string = 'http://localhost:8089/api/auth';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
-  constructor(private localService:LocalService,private toastrService: ToastrService, private http: HttpClient, public router: Router) {
+  constructor(private localService: LocalService, private toastrService: ToastrService, private http: HttpClient, public router: Router) {
   }
 
   checkToken() {
@@ -29,7 +30,7 @@ export class AuthService {
         const decodedJwtData = JSON.parse(decodedJwtJsonData);
 
         if (decodedJwtData && decodedJwtData.exp) {
-          const expiryDate = new Date(decodedJwtData.exp*1000);
+          const expiryDate = new Date(decodedJwtData.exp * 1000);
           const currentDate = new Date();
           return expiryDate > currentDate;
         } else {
@@ -76,15 +77,15 @@ export class AuthService {
           this.toastrService.error(res.errors);
           return;
         }
-  //OTP
-        this.localService.saveData("email",user.email);
+        //OTP
+        this.localService.saveData("email", user.email);
         this.toastrService.success(res.message);
         this.router.navigateByUrl('/verify-account')
       },
       error: () => {
         this.toastrService.error("This email is already associated with an account");
         this.handleError.bind(this)
-        ;
+          ;
       } //
     });
   }
@@ -92,6 +93,23 @@ export class AuthService {
   verify(verifyRequest: VerifyRequest) {
     let api = `${this.endpoint}/verify-account`;
     return this.http.put<any>(api, verifyRequest).subscribe({
+      next: (res) => {
+        if (res.http_code !== 200) {
+          this.toastrService.error(res.errors);
+          return;
+        }
+        this.toastrService.success(res.message);
+        this.router.navigate(['/login']);
+      },
+      error: () => {
+        this.toastrService.error("An error has occurred");
+        this.handleError.bind(this)
+      }
+    });
+  }
+
+  regenerateToken(regenRequest: RegenerateTokenRequest) {
+    return this.http.post<any>(`${this.endpoint}/regenerate-otp`, regenRequest).subscribe({
       next: (res) => {
         if (res.http_code !== 200) {
           this.toastrService.error(res.errors);

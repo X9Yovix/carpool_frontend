@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
       this.authservice.navigate();
 
       this.userForm = this.formBuilder.group({
-        email: [this.localService.getData("email"), [Validators.required, Validators.pattern("^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
+        email: [this.localService.getData("email"), [Validators.required, Validators.pattern("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$")]],
         password: ['', Validators.required]
       });
 
