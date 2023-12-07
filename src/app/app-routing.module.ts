@@ -18,8 +18,10 @@ import {ListCarsComponent} from "./components/driver/list-cars/list-cars.compone
 import {RequestedRidesComponent} from "./components/driver/requested-rides/requested-rides.component";
 import {AppliedRidesComponent} from "./components/user/applied-rides/applied-rides.component";
 import {ListDriverRidesComponent} from "./components/driver/list-driver-rides/list-driver-rides.component";
+import { HomeComponent } from './components/shareed/home/home.component';
 
 const routes: Routes = [
+  {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'check-email/:email', component: CheckEmailComponent},
@@ -27,7 +29,8 @@ const routes: Routes = [
 
   {path: 'forgot-password', component: ForgotPasswordComponent},
   {path: 'reset-password/:token', component: ResetPasswordComponent},
-  {path: '', redirectTo: '/login', pathMatch: 'full'},
+  {path: '', redirectTo: '/home', pathMatch: 'full'},
+  //{path: '', redirectTo: '/login', pathMatch: 'full'},
   {
     path: 'admin', component: AdminDashboardComponent,
     canActivate: [AuthGuard],

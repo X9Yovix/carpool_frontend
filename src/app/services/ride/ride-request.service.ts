@@ -1,8 +1,10 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {ToastrService} from "ngx-toastr";
-import {Router} from "@angular/router";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { ToastrService } from "ngx-toastr";
+import { Router } from "@angular/router";
+import { tap } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +18,26 @@ export class RideRequestService {
 
   constructor(private toastrService: ToastrService, private http: HttpClient, public router: Router) { }
 
-  applyForRide(rideId:number): Observable<Object> {
+  applyForRide(rideId: number): Observable<any> {
     const url = `${this.apiUrl}/passenger/apply`;
-    return this.http.post(url, rideId);
+
+    return this.http.post<any>(url, { rideId }).pipe(
+      tap(
+        (res) => {
+          if (res.http_code === 200) {
+            this.toastrService.success(res.message);
+          }
+          else {
+            this.toastrService.error(res.errors);
+          }
+        },
+        (error) => {
+          console.log(error)
+        }
+      )
+    );
   }
+
   getAppliedRides(page: number, size: number, status?: string): Observable<Object> {
     const url = `${this.apiUrl}/passenger/applied`;
     const params = {
