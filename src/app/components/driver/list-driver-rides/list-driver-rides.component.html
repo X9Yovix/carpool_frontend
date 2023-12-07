@@ -1,51 +1,161 @@
-<div class="mom-container">
-  <div class="container">
-    <div class="table-responsive">
-      <div class="table-wrapper">
-        <div class="table-title">
-          <div class="row">
-            <div class="col-xs-5">
-              <h2>Available <b>Rides</b></h2>
+<div class="cs-height_30 cs-height_lg_30 px-5"></div>
+<nav class="create-elements">
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <button class="nav-link active" id="nav-ride-tab" data-bs-toggle="tab" data-bs-target="#nav-ride" type="button"
+      role="tab" aria-controls="nav-ride" aria-selected="true">
+      My rides
+    </button>
+    <button class="nav-link" id="nav-car-tab" data-bs-toggle="tab" data-bs-target="#nav-car" type="button" role="tab"
+      aria-controls="nav-car" aria-selected="false">
+      Requests
+    </button>
+  </div>
+</nav>
+<div class="cs-height_30 cs-height_lg_30"></div>
+
+
+
+
+<div class="tab-content" id="nav-tabContent">
+  <!--TAB My Rides -->
+  <div class="tab-pane fade show active" id="nav-ride" role="tabpanel" aria-labelledby="nav-ride-tab" tabindex="0">
+    <div class="cs-height_30 cs-height_lg_30"></div>
+    <h2 class="cs-section_heading cs-style1">My Rides</h2>
+    <div class="cs-height_30 cs-height_lg_30"></div>
+
+    <!-- Content -->
+    <ul class="cs-activity_list cs-mp0" *ngFor="let ride of driverRides; let i = index">
+      <li>
+        <div class="cs-activity cs-white_bg cs-type1">
+          <div class="cs-activity_avatar">
+            <div *ngIf="ride.status === 'ACTIVE'">
+              <img src="assets/img/status_ride/active.png" alt=""><span> ACTIVE</span>
+            </div>
+
+            <div *ngIf="ride.status === 'COMPLETED'">
+              <img *ngIf="ride.status === 'COMPLETED'" src="assets/img/status_ride/completed.png" alt=""><span>
+                COMPLETED</span>
+            </div>
+            <div *ngIf="ride.status === 'CANCELED'">
+              <img *ngIf="ride.status === 'CANCELED'" src="assets/img/status_ride/canceled.png" alt=""><span>
+                CANCELED</span>
+            </div>
+          </div>
+
+          <div class="cs-activity_right parent-div">
+            <div class="child-div">
+              <div class="label">Departure</div>
+              <div class="text">{{ ride.departureLocation }}</div>
+            </div>
+            <div class="child-div">
+              <div class="label">Destination</div>
+              <div class="text">{{ ride.destinationLocation }}</div>
+            </div>
+            <div class="child-div">
+              <div class="label">Price</div>
+              <div class="text">{{ ride.price }}</div>
+            </div>
+            <div class="child-div">
+              <div class="label">Passengers</div>
+              <div class="text">0/5</div>
+            </div>
+            <div class="child-div">
+              <div class="label">Used Car</div>
+              <div class="text">{{ ride.carBrand }}, {{ ride.carModel }}</div>
+            </div>
+            <div class="child-div">
+              <div class="label">Departure Date</div>
+              <div class="text">{{ ride.departureDate | date : "short" }}</div>
             </div>
           </div>
         </div>
-        <table class="table table-striped table-hover">
-          <thead>
-          <tr>
-            <th>#</th>
-            <th>Departure Location</th>
-            <th>Destination Location</th>
-            <th>Departure Date</th>
-            <th>Price</th>
-            <th>Status</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let ride of driverRides ;let i=index">
-            <td>{{i}}</td>
-            <td>{{ ride.departureLocation }}</td>
-            <td>{{ ride.destinationLocation }}</td>
-            <td>{{ ride.departureDate | date:'short' }}</td>
-            <td>{{ ride.price }}</td>
-            <td>{{ride.carBrand}} : {{ride.carModel}} {{ride.carSeats}} seats</td>
-          </tr>
-          </tbody>
-        </table>
-        <div class="clearfix">
-          <ul class="pagination">
-            <li class="page-item">
-              <button (click)="previousPage()" class="page-link">Previous</button>
-            </li>
+        <div class="cs-height_30 cs-height_lg_30"></div>
+      </li>
+    </ul>
+    <div class="clearfix">
+      <ul class="pagination">
+        <li class="page-item">
+          <button (click)="previousPage()" class="page-link">
+            Previous
+          </button>
+        </li>
 
-            <li *ngFor="let number of [0,1,2,3] ;" class="page-item" [ngClass]="{ 'page-item active' :page==number}">
-              <button (click)="goToPage(number)" class="page-link">{{number + 1}}</button>
-            </li>
-            <li class="page-item">
-              <button [disabled]="driverRides.length<10" (click)="nextPage()" class="page-link">Next</button>
-            </li>
-          </ul>
+        <li *ngFor="let number of [0, 1, 2, 3]" class="page-item"
+          [ngClass]="{ 'page-item active': page == number }">
+          <button (click)="goToPage(number)" class="page-link">
+            {{ number + 1 }}
+          </button>
+        </li>
+        <li class="page-item">
+          <button [disabled]="driverRides.length < 10" (click)="nextPage()" class="page-link">
+            Next
+          </button>
+        </li>
+      </ul>
+    </div>
+    <!-- <div class="container">
+      <div class="table-responsive">
+        <div class="table-wrapper">
+          <table class="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Departure</th>
+                <th>Destination</th>
+                <th>Date</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Used Car</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let ride of driverRides; let i = index">
+                <td>{{ i+1 }}</td>
+                <td>{{ ride.departureLocation }}</td>
+                <td>{{ ride.destinationLocation }}</td>
+                <td>{{ ride.departureDate | date : "short" }}</td>
+                <td>{{ ride.price }}</td>
+                <td>{{ ride.status }}</td>
+                <td>
+                  {{ ride.carBrand }}, {{ ride.carModel }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="clearfix">
+            <ul class="pagination">
+              <li class="page-item">
+                <button (click)="previousPage()" class="page-link">
+                  Previous
+                </button>
+              </li>
+
+              <li *ngFor="let number of [0, 1, 2, 3]" class="page-item"
+                [ngClass]="{ 'page-item active': page == number }">
+                <button (click)="goToPage(number)" class="page-link">
+                  {{ number + 1 }}
+                </button>
+              </li>
+              <li class="page-item">
+                <button [disabled]="driverRides.length < 10" (click)="nextPage()" class="page-link">
+                  Next
+                </button>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
+    </div> -->
+
+  </div>
+
+  <!--TAB Requests -->
+  <div class="tab-pane fade" id="nav-car" role="tabpanel" aria-labelledby="nav-car-tab" tabindex="0">
+    <div class="cs-height_25 cs-height_lg_25"></div>
+    <h2 class="cs-section_heading cs-style1">Request from passengers</h2>
+    <div class="cs-height_25 cs-height_lg_25"></div>
+
+    <!-- Content -->
+    <app-requested-rides></app-requested-rides>
   </div>
 </div>
