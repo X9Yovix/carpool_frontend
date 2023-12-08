@@ -5,6 +5,7 @@ import {Ride} from "../../models/Ride";
 import {AddRideRequest} from "../../models/AddRideRequest";
 import {FilterRideRequest} from "../../models/FilterRideRequest";
 import {RideInfo} from "../../models/RideInfo";
+import {LocalService} from "../encryption/local.service";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,8 @@ export class RideService {
   private apiUrl = 'http://localhost:8089/api/rides';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
-  constructor(private http: HttpClient) {
+  constructor(private localService: LocalService,
+              private http: HttpClient) {
   }
 
   createRide(request: AddRideRequest): Observable<Object> {
@@ -43,6 +45,19 @@ export class RideService {
 
     const url = `${this.apiUrl}/filter?page=${page}&size=${size}`;
     return this.http.post<any>(url, filterRequestData);
+  }
+
+  search(destination: string) {
+
+      this.filterRides(
+        new FilterRideRequest(
+          this.localService.getData("address"),
+          destination,
+          '',
+          '',
+          '',
+        ), 0, 10).subscribe(res=>console.log(res));
+    console.log(this.localService.getData("address"))
   }
 
   getLatestRides(page: number, size: number): Observable<Ride[]> {

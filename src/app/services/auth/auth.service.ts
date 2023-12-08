@@ -135,6 +135,7 @@ export class AuthService {
             return;
           }
           if (res.token) {
+            this.localService.saveData('address', res.address);
             this.localService.saveData('access_token', res.token);
             this.localService.saveData('first-name', res.firstName);
             this.localService.saveData('last-name', res.lastName);

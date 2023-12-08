@@ -25,9 +25,9 @@
                         </div>
                     </div>
                     <div class="cs-search_wrap">
-                        <form action="#" class="cs-search">
-                            <input type="text" class="cs-search_input" placeholder="Search for your destination">
-                            <button class="cs-search_btn">
+                        <div class="cs-search">
+                            <input type="text" class="cs-search_input" [(ngModel)]="destination" placeholder="Search for your destination">
+                            <button (click)="search()" class="cs-search_btn">
                                 <svg width="20" height="21" viewBox="0 0 20 21" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -38,7 +38,7 @@
                                         stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
                             </button>
-                        </form>
+                        </div>
                     </div>
                     <ng-container *ngIf="authService.isLoggedIn; else showSignInButton">
                         <div class="cs-header_btns_wrap">
