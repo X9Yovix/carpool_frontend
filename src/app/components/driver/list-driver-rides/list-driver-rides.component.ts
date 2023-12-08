@@ -23,7 +23,7 @@ export class ListDriverRidesComponent implements OnInit {
   }
 
   getDriverRides(page:any,size:any) {
-    this.rideService.getRidesCreatedByAuthenticatedDriver(page, size).subscribe(
+    this.rideService.getRidesCreatedByAuthenticatedDriver(page-1, size).subscribe(
       (res: any) => {
         this.driverRides = res.rides;
         this.totalItems = res.totalElements; 
