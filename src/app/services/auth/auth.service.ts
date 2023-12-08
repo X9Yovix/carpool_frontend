@@ -138,6 +138,7 @@ export class AuthService {
             this.localService.saveData('access_token', res.token);
             this.localService.saveData('first-name', res.firstName);
             this.localService.saveData('last-name', res.lastName);
+            this.localService.saveData('imgUrl', res.imgUrl);
             this.toastrService.success(res.message);
             this.navigate();
           }
