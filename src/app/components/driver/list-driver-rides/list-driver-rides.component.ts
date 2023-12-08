@@ -9,24 +9,23 @@ import { RideService } from "../../../services/ride/ride.service";
 export class ListDriverRidesComponent implements OnInit {
 
   driverRides!: any[];
-  //page=0;
-  totalItems: number = 0; 
+  totalItems: number = 0;
   itemsPerPage: number = 5;
   currentPage: number = 1;
 
 
   ngOnInit(): void {
-    this.getDriverRides(this.currentPage,this.itemsPerPage);
+    this.getDriverRides(this.currentPage, this.itemsPerPage);
   }
 
   constructor(private rideService: RideService) {
   }
 
-  getDriverRides(page:any,size:any) {
-    this.rideService.getRidesCreatedByAuthenticatedDriver(page-1, size).subscribe(
+  getDriverRides(page: any, size: any) {
+    this.rideService.getRidesCreatedByAuthenticatedDriver(page - 1, size).subscribe(
       (res: any) => {
         this.driverRides = res.rides;
-        this.totalItems = res.totalElements; 
+        this.totalItems = res.totalElements;
       }
     );
   }
@@ -42,21 +41,21 @@ export class ListDriverRidesComponent implements OnInit {
   previousPage(): void {
     if (this.currentPage > 1) {
       this.currentPage--;
-      this.getDriverRides(this.currentPage,this.itemsPerPage) 
+      this.getDriverRides(this.currentPage, this.itemsPerPage)
     }
   }
 
   nextPage(): void {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
-      this.getDriverRides(this.currentPage,this.itemsPerPage) 
+      this.getDriverRides(this.currentPage, this.itemsPerPage)
     }
   }
 
   goToPage(pageNumber: number): void {
     if (pageNumber >= 1 && pageNumber <= this.totalPages && pageNumber !== this.currentPage) {
       this.currentPage = pageNumber;
-      this.getDriverRides(this.currentPage,this.itemsPerPage) 
+      this.getDriverRides(this.currentPage, this.itemsPerPage)
     }
   }
 }

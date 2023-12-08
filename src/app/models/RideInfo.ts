@@ -10,7 +10,8 @@ export class RideInfo {
   carModel: string;
   carColor: string;
   carSeats: number;
-
+  carAvailableSeats: number;
+  
   constructor(
     id: number,
     departureLocation: string,
@@ -22,7 +23,8 @@ export class RideInfo {
     carBrand: string,
     carModel: string,
     carColor: string,
-    carSeats: number
+    carSeats: number,
+    carAvailableSeats: number
   ) {
     this.id = id;
     this.departureLocation = departureLocation;
@@ -35,6 +37,7 @@ export class RideInfo {
     this.carModel = carModel;
     this.carColor = carColor;
     this.carSeats = carSeats;
+    this.carAvailableSeats = carAvailableSeats;
   }
 }
 

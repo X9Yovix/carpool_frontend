@@ -50,7 +50,7 @@
     modalVideo();
     tabs();
     accordian();
-    countDown();
+    /* countDown(); */
     modeSwitcher();
   });
 
@@ -435,7 +435,7 @@
   /*--------------------------------------------------------------
     13. CountDown
   --------------------------------------------------------------*/
-  function countDown() {
+  /* function countDown() {
     if ($.exists('.cs-countdown')) {
       $('.cs-countdown').each(function () {
         var _this = this;
@@ -465,7 +465,7 @@
         }, 1000);
       });
     }
-  }
+  } */
 
   /*--------------------------------------------------------------
     14. Mode Switcher
