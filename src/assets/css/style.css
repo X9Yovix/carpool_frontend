@@ -7896,3 +7896,11 @@ body.cs-dark input[type="datetime-local"]::-webkit-calendar-picker-indicator {
   top: 0 !important;
   transform: translateX(200%) !important;
 }
+
+body.cs-dark table.table-cars tr td {
+  color: white;
+}
+
+body.cs-dark table.table-cars tr th {
+  color: #e5c1c1
+}
