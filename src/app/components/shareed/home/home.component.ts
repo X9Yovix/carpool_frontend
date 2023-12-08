@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { CountdownService } from 'src/app/services/countdown/countdown.service';
 import { RideRequestService } from 'src/app/services/ride/ride-request.service';
 import { RideService } from 'src/app/services/ride/ride.service';
 
@@ -13,20 +14,66 @@ import { RideService } from 'src/app/services/ride/ride.service';
 export class HomeComponent {
   latestRides!: any[];
 
+  itemsPerPage: number = 10;
+  currentPage: number = 1;
+  countdown: { days: number, hours: number, minutes: number, seconds: number } = {
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0
+  };
+
+  private countdownSubscriptions: Subscription[] = [];
+
   constructor(
     private rideService: RideService,
     private rideRequestService: RideRequestService,
     private authSerice: AuthService,
     private router: Router,
+    private countdownService: CountdownService,
   ) { }
 
-  ngOnInit(): void {
-    this.rideService.getLatestRides(0, 10).subscribe(
-      (res: any) => {
-        this.latestRides = res.rides
-      }
-    );
 
+  ngOnInit(): void {
+    this.getLatestRides(this.currentPage, this.itemsPerPage);
+  }
+
+
+  ngOnDestroy(): void {
+    this.stopCountdown();
+  }
+
+  stopCountdown(): void {
+    this.countdownSubscriptions.forEach(subscription => subscription.unsubscribe());
+    this.countdownSubscriptions = [];
+    this.countdown = { days: 0, hours: 0, minutes: 0, seconds: 0 };
+  }
+
+  getLatestRides(page: any, size: any) {
+    this.stopCountdown();
+
+    this.rideService.getLatestRides(page - 1, size).subscribe((res: any) => {
+      this.latestRides = res.rides;
+      this.latestRides.forEach(ride => this.startCountdown(ride.departureDate));
+    });
+  }
+
+  startCountdown(dateDep: Date): void {
+    const countdownDate = new Date(dateDep);
+    this.countdown = { days: 0, hours: 0, minutes: 0, seconds: 0 };
+  
+    this.stopCountdown();
+  
+    const subscription: Subscription = this.countdownService.startCountdown(countdownDate).subscribe(distance => {
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  
+      this.countdown = { days, hours, minutes, seconds };
+    });
+  
+    this.countdownSubscriptions.push(subscription);
   }
 
   viewRideDetails(rideId: number): void {

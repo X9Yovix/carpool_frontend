@@ -71,7 +71,6 @@ export class RideComponent implements OnInit, OnDestroy {
     });
   }
 
-
   startCountdown(dateDep: Date): void {
     const countdownDate = new Date(dateDep);
     this.countdown = { days: 0, hours: 0, minutes: 0, seconds: 0 };
@@ -90,8 +89,6 @@ export class RideComponent implements OnInit, OnDestroy {
     this.countdownSubscriptions.push(subscription);
   }
   
-
-
   request(id: number) {
     this.rideRequestService.applyForRide(id).subscribe(
       (res: any) => {
