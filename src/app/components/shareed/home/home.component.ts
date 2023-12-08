@@ -49,4 +49,18 @@ export class HomeComponent {
       this.router.navigate(['/login']);
     }
   }
+
+  get availableSeatsArray(): number[] {
+    return Array.from({ length: this.latestRides.length }, (_, index) => index);
+  }
+
+  getAvatarImage(index: number): string {
+    const ride = this.latestRides[index];
+    const takenSeats = ride.carSeats - ride.carAvailableSeats;
+    if (index < takenSeats) {
+      return 'assets/img/avatar/avatar_2.png';
+    } else {
+      return 'assets/img/avatar/avatar_1.png';
+    }
+  }
 }

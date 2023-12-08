@@ -6,7 +6,8 @@
         <div class="cs-hero_in">
             <div class="cs-hero_text">
                 <h1 class="cs-hero_title">The Ultimate Carpool Hub for Efficient Ridesharing Experiences</h1>
-                <div class="cs-hero_subtitle cs-medium"> Secure and Convenient Carpooling for Commuting, Entertainment, and <br>Time-Optimized Travel.</div>
+                <div class="cs-hero_subtitle cs-medium"> Secure and Convenient Carpooling for Commuting, Entertainment,
+                    and <br>Time-Optimized Travel.</div>
                 <div class="cs-hero_btns">
                     <a routerLink="/search" class="cs-hero_btn cs-style1 cs-color3"><span>Explore</span></a>
                     <a routerLink="/login" class="cs-hero_btn cs-style1 cs-color1"><span>Create</span></a>
@@ -36,26 +37,31 @@
             <div class="cs-slider_container" data-autoplay="0" data-loop="1" data-speed="600" data-center="0"
                 data-slides-per-view="responsive" data-xs-slides="2" data-sm-slides="3" data-md-slides="4"
                 data-lg-slides="5" data-add-slides="5">
-                
-                <div class="cs-slider_wrapper" >
+
+                <div class="cs-slider_wrapper">
                     <div *ngFor="let ride of latestRides" class="cs-slide">
                         <div class="cs-card cs-style4 cs-type1 cs-box_shadow cs-white_bg">
                             <span class="cs-card_like cs-primary_color">
                                 <i class="far fa-star fa-fw"></i>
                                 <!-- <i class="fas fa-heart fa-fw"></i> -->
-                                4/5
+                                3.4/5
                             </span>
                             <a href="#" class="cs-card_thumb cs-zoom_effect">
-                                <img src="http://localhost:8089/api/uploads/img/default/default_profile.png" alt="Image" class="cs-zoom_item" width="350" height="280">
+                                <img src="http://localhost:8089/api/uploads/img/default/default_profile.png" alt="Image"
+                                    class="cs-zoom_item" width="350" height="280">
                             </a>
                             <div class="cs-card_info">
                                 <a href="#" class="cs-avatar cs-white_bg">
                                     <div class="cs-avatar_images">
-                                        <img src="assets/img/avatar/avatar_14.png" alt="Avatar">
-                                        <img src="assets/img/avatar/avatar_15.png" alt="Avatar">
-                                        <img src="assets/img/avatar/avatar_16.png" alt="Avatar">
-                                        <img src="assets/img/avatar/avatar_17.png" alt="Avatar">
-                                        <img src="assets/img/avatar/avatar_17.png" alt="Avatar">
+                                        <ng-container
+                                            *ngFor="let i of [].constructor(ride.carSeats - ride.carAvailableSeats); let j = index">
+                                            <img src="assets/img/avatar/registred.png" alt="Avatar">
+                                        </ng-container>
+
+                                        <ng-container
+                                            *ngFor="let i of [].constructor(ride.carAvailableSeats); let j = index">
+                                            <img src="assets/img/avatar/waiting.png" alt="Avatar">
+                                        </ng-container>
                                     </div>
                                     <span>{{ ride.carAvailableSeats }}/{{ ride.carSeats }}<span>places</span></span>
                                 </a>
@@ -86,16 +92,19 @@
                                         <h3 class="cs-countdown_text">Sec</h3>
                                     </div>
                                 </div>
-                                <h3 class="cs-card_title">{{ ride.departureLocation }} to {{ ride.destinationLocation }}</h3>
+                                <h3 class="cs-card_title">{{ ride.departureLocation }} to {{ ride.destinationLocation }}
+                                </h3>
                                 <div class="cs-card_price"><b class="cs-primary_color">Price:</b> {{ ride.price }}
                                     <!-- <p>Car: {{ ride.carBrand }} {{ ride.carModel }} ({{ ride.carColor }})</p> -->
                                 </div>
                                 <hr>
                                 <div class="cs-card_footer">
-                                    <span class="cs-card_btn_1" data-modal="#history_1" (click)="viewRideDetails(ride.id)">
+                                    <span class="cs-card_btn_1" data-modal="#history_1"
+                                        (click)="viewRideDetails(ride.id)">
                                         <i class="fas fa-info"></i> View Details
                                     </span>
-                                    <span class="cs-card_btn_2" data-modal="#bid_1" (click)="joinRide(ride.id)"><span>Join</span></span>
+                                    <span class="cs-card_btn_2" data-modal="#bid_1"
+                                        (click)="joinRide(ride.id)"><span>Join</span></span>
                                 </div>
                             </div>
                         </div>
