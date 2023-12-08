@@ -1,6 +1,78 @@
+<div class="cs-height_30 cs-height_lg_30 px-5"></div>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="cs-activity_wrap cs-box_shadow cs-white_bg">
+        <h2 class="cs-section_heading cs-style1">Check Your Ride Applications</h2>
+        <div class="cs-height_45 cs-height_lg_45"></div>
+        <ul class="cs-activity_list cs-mp0">
+          <li *ngFor="let ride of rides ;let i=index">
+            <div class="cs-activity cs-gray_bg">
 
 
+              <div class="cs-activity_avatar mr-3">
+                <div *ngIf="ride.statusRideRequest === 'ACCEPTED'">
+                  <img src="assets/img/status_ride/accepted.png" alt="ACCEPTED">
+                  <div style="text-align: center;">
+                    ACCEPTED
+                  </div>
+                </div>
 
+                <div *ngIf="ride.statusRideRequest === 'DECLINED'">
+                  <img src="assets/img/status_ride/declined.png" alt="COMPLETED">
+                  <div style="text-align: center;">
+                    DECLINED
+                  </div>
+                </div>
+
+                <div *ngIf="ride.statusRideRequest === 'PENDING'">
+                  <img src="assets/img/status_ride/active.png" alt="PENDING">
+                  <div style="text-align: center;">
+                    PENDING
+                  </div>
+                </div>
+
+              </div>
+              <div class="cs-activity_right">
+                <p class="cs-activity_text">Departure: <span>{{ ride.departureLocation }} </span> | Destination <span>{{
+                    ride.destinationLocation }}</span> <b> | at {{ ride.departureDate | date:'short' }}</b></p>
+                <p class="cs-activity_posted_by">Request at <b style="color:yellowgreen">{{ ride.requestDate|
+                    date:'short' }} and this ride is {{ ride.statusRide }}</b>
+                </p>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="cs-height_50 cs-height_lg_40"></div>
+      <!-- Pagination -->
+      <div class="clearfix">
+        <ul class="pagination">
+          <li class="page-item">
+            <button (click)="previousPage()" class="page-link">
+              Previous
+            </button>
+          </li>
+
+          <li *ngFor="let number of pages" class="page-item" [ngClass]="{ 'page-item active': currentPage == number }">
+            <button (click)="goToPage(number)" class="page-link">
+              {{ number }}
+            </button>
+          </li>
+
+          <li class="page-item">
+            <button [disabled]="currentPage >= totalPages" (click)="nextPage()" class="page-link">
+              Next
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="cs-height_100 cs-height_lg_70"></div>
+
+<!-- 
 <div class="mom-container">
   <div class="container">
     <div class="table-responsive">
@@ -14,38 +86,39 @@
         </div>
         <table class="table table-striped table-hover">
           <thead>
-          <tr>
-            <th>#</th>
-            <th>Departure Location</th>
-            <th>Destination Location</th>
-            <th>Departure Date</th>
-            <th>Request Date</th>
-            <th>Ride Status</th>
-            <th>Ride Request Status</th>
+            <tr>
+              <th>#</th>
+              <th>Departure Location</th>
+              <th>Destination Location</th>
+              <th>Departure Date</th>
+              <th>Request Date</th>
+              <th>Ride Status</th>
+              <th>Ride Request Status</th>
 
-          </tr>
+            </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let ride of rides ;let i=index">
-            <td>{{i}}</td>
-            <td>{{ ride.departureLocation }}</td>
-            <td>{{ ride.destinationLocation }}</td>
-            <td>{{ ride.departureDate | date:'short' }}</td>
-            <td>{{ ride.requestDate | date:'short' }}</td>
-            <td *ngIf="ride.statusRide=='ACTIVE'"><span class="status text-success">&bull;</span> Active</td>
-            <td *ngIf="ride.statusRide=='COMPLETED'"><span class="status text-success">&bull;</span> Active</td>
-            <td *ngIf="ride.statusRide=='CANCELED'"><span class="status text-success">&bull;</span> Active</td>
+            <tr *ngFor="let ride of rides ;let i=index">
+              <td>{{i}}</td>
+              <td>{{ ride.departureLocation }}</td>
+              <td>{{ ride.destinationLocation }}</td>
+              <td>{{ ride.departureDate | date:'short' }}</td>
+              <td>{{ ride.requestDate | date:'short' }}</td>
+              <td *ngIf="ride.statusRide=='ACTIVE'"><span class="status text-success">&bull;</span> Active</td>
+              <td *ngIf="ride.statusRide=='COMPLETED'"><span class="status text-success">&bull;</span> Active</td>
+              <td *ngIf="ride.statusRide=='CANCELED'"><span class="status text-success">&bull;</span> Active</td>
 
-            <td *ngIf="ride.statusRideRequest=='DECLINED'"><span class="status text-danger">&bull;</span> Inactive</td>
+              <td *ngIf="ride.statusRideRequest=='DECLINED'"><span class="status text-danger">&bull;</span> Inactive
+              </td>
 
-            <td *ngIf="ride.statusRideRequest=='ACCEPTED'"><span class="status text-success">&bull;</span> Active</td>
+              <td *ngIf="ride.statusRideRequest=='ACCEPTED'"><span class="status text-success">&bull;</span> Active</td>
 
-            <td *ngIf="ride.statusRideRequest=='PENDING'"><span class="status text-danger">&bull;</span> Inactive</td>
+              <td *ngIf="ride.statusRideRequest=='PENDING'"><span class="status text-danger">&bull;</span> Inactive</td>
 
 
-            <td>
-            </td>
-          </tr>
+              <td>
+              </td>
+            </tr>
           </tbody>
         </table>
         <div class="clearfix">
@@ -59,4 +132,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->

@@ -11,7 +11,7 @@ import { RideService } from 'src/app/services/ride/ride.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit, OnDestroy {
   latestRides!: any[];
 
   itemsPerPage: number = 10;
