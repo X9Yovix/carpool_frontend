@@ -22,9 +22,13 @@ export class RideService {
     return this.http.post(url, request);
   }
 
-  getRidesCreatedByAuthenticatedDriver(): Observable<RideInfo[]> {
+  getRidesCreatedByAuthenticatedDriver(page: number, size: number): Observable<RideInfo[]> {
     const url = `${this.apiUrl}/driver`;
-    return this.http.get<RideInfo[]>(url);
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString());
+
+    return this.http.get<RideInfo[]>(url, {params});
   }
 
   filterRides(request: FilterRideRequest, page: number, size: number): Observable<Ride[]> {

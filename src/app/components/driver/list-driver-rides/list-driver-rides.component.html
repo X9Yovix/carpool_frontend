@@ -72,6 +72,7 @@
         <div class="cs-height_30 cs-height_lg_30"></div>
       </li>
     </ul>
+    <!-- Pagination -->
     <div class="clearfix">
       <ul class="pagination">
         <li class="page-item">
@@ -80,73 +81,19 @@
           </button>
         </li>
 
-        <li *ngFor="let number of [0, 1, 2, 3]" class="page-item"
-          [ngClass]="{ 'page-item active': page == number }">
+        <li *ngFor="let number of pages" class="page-item" [ngClass]="{ 'page-item active': currentPage == number }">
           <button (click)="goToPage(number)" class="page-link">
-            {{ number + 1 }}
+            {{ number }}
           </button>
         </li>
+
         <li class="page-item">
-          <button [disabled]="driverRides.length < 10" (click)="nextPage()" class="page-link">
+          <button [disabled]="currentPage >= totalPages" (click)="nextPage()" class="page-link">
             Next
           </button>
         </li>
       </ul>
     </div>
-    <!-- <div class="container">
-      <div class="table-responsive">
-        <div class="table-wrapper">
-          <table class="table table-striped table-hover">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Departure</th>
-                <th>Destination</th>
-                <th>Date</th>
-                <th>Price</th>
-                <th>Status</th>
-                <th>Used Car</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let ride of driverRides; let i = index">
-                <td>{{ i+1 }}</td>
-                <td>{{ ride.departureLocation }}</td>
-                <td>{{ ride.destinationLocation }}</td>
-                <td>{{ ride.departureDate | date : "short" }}</td>
-                <td>{{ ride.price }}</td>
-                <td>{{ ride.status }}</td>
-                <td>
-                  {{ ride.carBrand }}, {{ ride.carModel }}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="clearfix">
-            <ul class="pagination">
-              <li class="page-item">
-                <button (click)="previousPage()" class="page-link">
-                  Previous
-                </button>
-              </li>
-
-              <li *ngFor="let number of [0, 1, 2, 3]" class="page-item"
-                [ngClass]="{ 'page-item active': page == number }">
-                <button (click)="goToPage(number)" class="page-link">
-                  {{ number + 1 }}
-                </button>
-              </li>
-              <li class="page-item">
-                <button [disabled]="driverRides.length < 10" (click)="nextPage()" class="page-link">
-                  Next
-                </button>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div> -->
-
   </div>
 
   <!--TAB Requests -->
