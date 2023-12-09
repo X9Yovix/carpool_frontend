@@ -22,6 +22,9 @@ import { HomeComponent } from './components/shareed/home/home.component';
 import { MyItemsTabsComponent } from './components/driver/my-items-tabs/my-items-tabs.component';
 import { CreateTabsComponent } from './components/driver/create-tabs/create-tabs.component';
 import { ProfileInfoComponent } from './components/user/profile-info/profile-info.component';
+import { ProfileInfoDriverComponent } from './components/driver/profile-info-driver/profile-info-driver.component';
+import { AccountSettingsUserComponent } from './components/user/account-settings-user/account-settings-user.component';
+import { AccountSettingsDriverComponent } from './components/driver/account-settings-driver/account-settings-driver.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -55,7 +58,8 @@ const routes: Routes = [
       { path: 'my-items/:tab', component: MyItemsTabsComponent },
       { path: 'create', redirectTo: 'create/ride', pathMatch: 'full' },
       { path: 'create/:tab', component: CreateTabsComponent },
-      { path: 'profile', component: ProfileInfoComponent },
+      { path: 'profile', component: ProfileInfoDriverComponent },
+      { path: 'settings', component: AccountSettingsDriverComponent },
     ]
   },
   {
@@ -70,6 +74,7 @@ const routes: Routes = [
       { path: 'rides', component: RideComponent },
       { path: 'applied-rides', component: AppliedRidesComponent },
       { path: 'profile', component: ProfileInfoComponent },
+      { path: 'settings', component: AccountSettingsUserComponent },
     ]
   },
   

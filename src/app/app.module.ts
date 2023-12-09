@@ -32,8 +32,9 @@ import { HomeComponent } from './components/shareed/home/home.component';
 import { MyItemsTabsComponent } from './components/driver/my-items-tabs/my-items-tabs.component';
 import { CreateTabsComponent } from './components/driver/create-tabs/create-tabs.component';
 import { ProfileInfoComponent } from './components/user/profile-info/profile-info.component';
-import { AccountSettingsComponent } from './components/account-settings/account-settings.component';
-import { ProfileInfoDriverComponent } from './components/driver/profile-info-driver/profile-info-driver.component';// Import ReactiveFormsModule
+import { ProfileInfoDriverComponent } from './components/driver/profile-info-driver/profile-info-driver.component';
+import { AccountSettingsDriverComponent } from './components/driver/account-settings-driver/account-settings-driver.component';
+import { AccountSettingsUserComponent } from './components/user/account-settings-user/account-settings-user.component';// Import ReactiveFormsModule
 
 @NgModule({
   declarations: [
@@ -60,8 +61,9 @@ import { ProfileInfoDriverComponent } from './components/driver/profile-info-dri
     MyItemsTabsComponent,
     CreateTabsComponent,
     ProfileInfoComponent,
-    AccountSettingsComponent,
     ProfileInfoDriverComponent,
+    AccountSettingsDriverComponent,
+    AccountSettingsUserComponent,
 
   ],
     imports: [
