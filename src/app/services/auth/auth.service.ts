@@ -153,9 +153,9 @@ export class AuthService {
   navigate() {
     console.log(this.getRoles())
     if (this.getRoles().indexOf('PASSENGER') != -1)
-      this.router.navigateByUrl('/user');
+      this.router.navigateByUrl('/user/applied-rides');
     else if (this.getRoles().indexOf('DRIVER') != -1)
-      this.router.navigateByUrl('/driver');
+      this.router.navigateByUrl('/driver/my-items');
     else if (this.getRoles().indexOf('ADMIN') != -1)
       this.router.navigateByUrl('/admin');
   }

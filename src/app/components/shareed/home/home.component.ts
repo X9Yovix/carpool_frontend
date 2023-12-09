@@ -23,7 +23,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     seconds: 0
   };
 
-  private countdownSubscriptions: Subscription[] = [];
 
   backendEndpoint: string = 'http://localhost:8089/api';
 
