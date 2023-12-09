@@ -25,6 +25,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   private countdownSubscriptions: Subscription[] = [];
 
+  backendEndpoint: string = 'http://localhost:8089/api';
+
   constructor(
     private rideService: RideService,
     private rideRequestService: RideRequestService,
@@ -54,6 +56,11 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     this.rideService.getLatestRides(page - 1, size).subscribe((res: any) => {
       this.latestRides = res.rides;
+
+      this.latestRides.forEach(ride => {
+        ride.driverImageUrl = this.backendEndpoint + ride.driverImageUrl;
+      });
+      
       this.latestRides.forEach(ride => this.startCountdown(ride.departureDate));
     });
   }
@@ -61,18 +68,18 @@ export class HomeComponent implements OnInit, OnDestroy {
   startCountdown(dateDep: Date): void {
     const countdownDate = new Date(dateDep);
     this.countdown = { days: 0, hours: 0, minutes: 0, seconds: 0 };
-  
+
     this.stopCountdown();
-  
+
     const subscription: Subscription = this.countdownService.startCountdown(countdownDate).subscribe(distance => {
       const days = Math.floor(distance / (1000 * 60 * 60 * 24));
       const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-  
+
       this.countdown = { days, hours, minutes, seconds };
     });
-  
+
     this.countdownSubscriptions.push(subscription);
   }
 
@@ -101,7 +108,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     return Array.from({ length: this.latestRides.length }, (_, index) => index);
   }
 
-  getAvatarImage(index: number): string {
+  /* getAvatarImage(index: number): string {
     const ride = this.latestRides[index];
     const takenSeats = ride.carSeats - ride.carAvailableSeats;
     if (index < takenSeats) {
@@ -109,5 +116,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     } else {
       return 'assets/img/avatar/avatar_1.png';
     }
-  }
+  } */
+
+
 }

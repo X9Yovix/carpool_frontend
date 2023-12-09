@@ -75,3 +75,15 @@ export class AppComponent implements OnInit {
     }
   }
 }
+/* 
+this.scriptLoaderService.loadScript('assets/js/plugins/jquery.min.js')
+          .then(() => {
+            console.log('jquery.min.js is reloaded');
+            this.scriptLoaderService.loadScript('assets/js/plugins/jquery.slick.min.js')
+              .then(() => {
+                console.log('jquery.slick.min.js is reloaded');
+                this.scriptLoaderService.loadScript('assets/js/main.js').then(() => {
+                  console.log('main.js is reloaded');
+                })
+              })
+          }) */

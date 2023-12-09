@@ -11,6 +11,8 @@ export class RideInfo {
   carColor: string;
   carSeats: number;
   carAvailableSeats: number;
+  driverImageUrl: string;
+  
   
   constructor(
     id: number,
@@ -24,7 +26,8 @@ export class RideInfo {
     carModel: string,
     carColor: string,
     carSeats: number,
-    carAvailableSeats: number
+    carAvailableSeats: number,
+    driverImageUrl: string
   ) {
     this.id = id;
     this.departureLocation = departureLocation;
@@ -38,6 +41,7 @@ export class RideInfo {
     this.carColor = carColor;
     this.carSeats = carSeats;
     this.carAvailableSeats = carAvailableSeats;
+    this.driverImageUrl = driverImageUrl;
   }
 }
 
