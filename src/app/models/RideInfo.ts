@@ -13,6 +13,12 @@ export class RideInfo {
   carAvailableSeats: number;
   driverImageUrl: string;
   
+  countdown: { days: number, hours: number, minutes: number, seconds: number } = {
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0
+  };
   
   constructor(
     id: number,

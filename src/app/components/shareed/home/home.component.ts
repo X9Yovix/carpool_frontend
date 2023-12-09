@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { RideInfo } from 'src/app/models/RideInfo';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { CountdownService } from 'src/app/services/countdown/countdown.service';
 import { RideRequestService } from 'src/app/services/ride/ride-request.service';
@@ -12,8 +13,7 @@ import { RideService } from 'src/app/services/ride/ride.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  latestRides!: any[];
-
+  latestRides!: RideInfo[];
   itemsPerPage: number = 10;
   currentPage: number = 1;
   countdown: { days: number, hours: number, minutes: number, seconds: number } = {
@@ -46,13 +46,29 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   stopCountdown(): void {
-    this.countdownSubscriptions.forEach(subscription => subscription.unsubscribe());
-    this.countdownSubscriptions = [];
-    this.countdown = { days: 0, hours: 0, minutes: 0, seconds: 0 };
+    if (this.latestRides) {
+      this.latestRides.forEach(ride => {
+        ride.countdown = { days: 0, hours: 0, minutes: 0, seconds: 0 };
+      });
+    }
   }
 
-  getLatestRides(page: any, size: any) {
+  startCountdown(ride: RideInfo): void {
+    const countdownDate = new Date(ride.departureDate);
     this.stopCountdown();
+    this.countdownService.startCountdown(countdownDate, ride.id).subscribe(distance => {
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      ride.countdown = { days, hours, minutes, seconds };
+    });
+  }
+
+
+
+  getLatestRides(page: any, size: any) {
+    //this.stopCountdown();
 
     this.rideService.getLatestRides(page - 1, size).subscribe((res: any) => {
       this.latestRides = res.rides;
@@ -60,27 +76,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.latestRides.forEach(ride => {
         ride.driverImageUrl = this.backendEndpoint + ride.driverImageUrl;
       });
-      
-      this.latestRides.forEach(ride => this.startCountdown(ride.departureDate));
+
+      this.latestRides.forEach(ride => this.startCountdown(ride));
     });
-  }
-
-  startCountdown(dateDep: Date): void {
-    const countdownDate = new Date(dateDep);
-    this.countdown = { days: 0, hours: 0, minutes: 0, seconds: 0 };
-
-    this.stopCountdown();
-
-    const subscription: Subscription = this.countdownService.startCountdown(countdownDate).subscribe(distance => {
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      this.countdown = { days, hours, minutes, seconds };
-    });
-
-    this.countdownSubscriptions.push(subscription);
   }
 
   viewRideDetails(rideId: number): void {
@@ -107,16 +105,5 @@ export class HomeComponent implements OnInit, OnDestroy {
   get availableSeatsArray(): number[] {
     return Array.from({ length: this.latestRides.length }, (_, index) => index);
   }
-
-  /* getAvatarImage(index: number): string {
-    const ride = this.latestRides[index];
-    const takenSeats = ride.carSeats - ride.carAvailableSeats;
-    if (index < takenSeats) {
-      return 'assets/img/avatar/avatar_2.png';
-    } else {
-      return 'assets/img/avatar/avatar_1.png';
-    }
-  } */
-
 
 }
