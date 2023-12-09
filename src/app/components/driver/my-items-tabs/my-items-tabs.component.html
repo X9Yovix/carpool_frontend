@@ -15,19 +15,19 @@
 <div class="cs-height_30 cs-height_lg_30"></div>
 
 <!-- MyItemsTabsComponent template -->
-<div class="tab-content" id="nav-tabContent">
+<div>
     <!--TAB My Rides -->
-    <div *ngIf="selectedTab === 'my-rides'">
+    <div *ngIf="selectedTab === 'my-rides'" [@tabAnimation]="''">
         <app-list-driver-rides></app-list-driver-rides>
     </div>
 
     <!--TAB Requests -->
-    <div *ngIf="selectedTab === 'requested-rides'">
+    <div *ngIf="selectedTab === 'requested-rides'" [@tabAnimation]="''">
         <app-requested-rides></app-requested-rides>
     </div>
 
     <!--TAB My Cars -->
-    <div *ngIf="selectedTab === 'my-cars'">
+    <div *ngIf="selectedTab === 'my-cars'" [@tabAnimation]="''">
         <app-list-cars></app-list-cars>
     </div>
 </div>

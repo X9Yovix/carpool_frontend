@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { DarkModeService } from 'src/app/dark-mode.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { LocalService } from 'src/app/services/encryption/local.service';
-import {RideService} from "../../../services/ride/ride.service";
 import {Router} from "@angular/router";
 
 @Component({

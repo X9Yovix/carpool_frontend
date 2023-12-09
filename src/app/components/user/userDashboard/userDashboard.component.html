@@ -2,6 +2,7 @@
 
 <div class="cs-height_100 cs-height_lg_70"></div>
 <div class="container">
+<!-- <div class="px-5"> -->
   <div class="cs-cover_photo cs-bg" data-src="assets/img/banners/banner1.jpg">
     <button class="cs-edit_cover cs-center">
       <svg width="33" height="33" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -53,7 +54,7 @@
         <ul class="cs-profile_nav cs-mp0">
           <li>
             <a routerLink="/user/rides" [routerLinkActive]="'active'">
-              <i class="fas fa-search"  width="15" height="14"></i>
+              <i class="fas fa-search" width="15" height="14"></i>
               <span>Search for a Ride</span>
             </a>
           </li>
@@ -116,7 +117,7 @@
         </ul>
       </div>
     </div>
-    <div class="cs-profile_right">
+    <div class="cs-profile_right" [@tabAnimation]="''">
       <router-outlet></router-outlet>
     </div>
   </div>

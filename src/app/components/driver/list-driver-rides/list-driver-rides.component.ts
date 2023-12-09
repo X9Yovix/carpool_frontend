@@ -13,12 +13,11 @@ export class ListDriverRidesComponent implements OnInit {
   itemsPerPage: number = 5;
   currentPage: number = 1;
 
+  constructor(private rideService: RideService) {
+  }
 
   ngOnInit(): void {
     this.getDriverRides(this.currentPage, this.itemsPerPage);
-  }
-
-  constructor(private rideService: RideService) {
   }
 
   getDriverRides(page: any, size: any) {

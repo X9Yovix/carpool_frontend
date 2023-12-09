@@ -12,14 +12,14 @@
 <div class="cs-height_30 cs-height_lg_30"></div>
 
 <!-- CreateTabsComponent template -->
-<div class="tab-content" id="nav-tabContent">
+<div>
     <!--TAB ADD Rides -->
-    <div *ngIf="selectedTab === 'ride'">
+    <div *ngIf="selectedTab !== 'ride'" [@tabAnimation]="''">
         <app-add-ride></app-add-ride>
     </div>
 
     <!--TAB ADD Cars -->
-    <div *ngIf="selectedTab === 'car'">
+    <div *ngIf="selectedTab !== 'car'" [@tabAnimation]="''">
         <app-add-car></app-add-car>
     </div>
 </div>

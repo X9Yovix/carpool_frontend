@@ -8,14 +8,17 @@ import { RideRequestService } from "../../../services/ride/ride-request.service"
   styleUrls: ['./requested-rides.component.css']
 })
 export class RequestedRidesComponent implements OnInit {
-  constructor(private toaster: ToastrService, private rideRequestService: RideRequestService) {
-  }
-
   rides!: any[];
   totalItems: number = 0;
   itemsPerPage: number = 5;
   currentPage: number = 1;
   apiUrl: string = 'http://localhost:8089/api';
+
+  constructor(
+    private toaster: ToastrService,
+    private rideRequestService: RideRequestService
+  ) { }
+
   ngOnInit(): void {
     this.getRequestedRides(this.currentPage, this.itemsPerPage);
   }
