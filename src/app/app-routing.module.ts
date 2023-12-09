@@ -67,6 +67,7 @@ const routes: Routes = [
 
     ]
   },
+  {path: 'rides', component: RideComponent},
   {path: '**', component: NotFoundComponent}
 
 

@@ -3,6 +3,7 @@ import { DarkModeService } from 'src/app/dark-mode.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { LocalService } from 'src/app/services/encryption/local.service';
 import {RideService} from "../../../services/ride/ride.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -14,7 +15,7 @@ export class HeaderComponent {
     public authService: AuthService,
     public darkModeService: DarkModeService,
     private localService: LocalService,
-    private rideService:RideService
+    public router: Router
     ) { }
   firstName: string | null = null;
   lastName: string | null = null;
@@ -27,6 +28,9 @@ export class HeaderComponent {
     this.darkModeService.toggleDarkMode();
   }
   search(){
-    this.rideService.search(this.destination);
+    if(this.authService.isLoggedIn)
+      this.router.navigate(['/user/rides', {destination:this.destination}]);
+    else
+      this.router.navigate(['/rides', {destination:this.destination}]);
   }
 }

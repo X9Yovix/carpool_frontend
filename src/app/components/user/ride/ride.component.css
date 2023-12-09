@@ -5,6 +5,10 @@
   font-size: 13px;
 
 }
+.loggedIn{
+  width:70%;
+  margin: 0 auto;
+}
 .table-responsive {
   margin: 30px 0;
 }

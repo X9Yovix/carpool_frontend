@@ -1,13 +1,15 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 
-import { HttpClient } from "@angular/common/http";
-import { RideService } from "../../../services/ride/ride.service";
-import { RideInfo } from "../../../models/RideInfo";
-import { RideRequestService } from "../../../services/ride/ride-request.service";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { FilterRideRequest } from "../../../models/FilterRideRequest";
-import { CountdownService } from 'src/app/services/countdown/countdown.service';
-import { Subscription } from 'rxjs';
+import {HttpClient} from "@angular/common/http";
+import {RideService} from "../../../services/ride/ride.service";
+import {RideInfo} from "../../../models/RideInfo";
+import {RideRequestService} from "../../../services/ride/ride-request.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FilterRideRequest} from "../../../models/FilterRideRequest";
+import {CountdownService} from 'src/app/services/countdown/countdown.service';
+import {Subscription} from 'rxjs';
+import {AuthService} from "../../../services/auth/auth.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-ride',
@@ -36,15 +38,20 @@ export class RideComponent implements OnInit, OnDestroy {
     private rideService: RideService,
     private rideRequestService: RideRequestService,
     private countdownService: CountdownService,
-  ) { }
+    public authService: AuthService,
+    public route: ActivatedRoute
+  ) {
+  }
 
+  destination? = this.route.snapshot.paramMap.get('destination');
 
 
   ngOnInit(): void {
+
     this.getRides(this.currentPage, this.itemsPerPage);
     this.rideFilterForm = this.fb.group({
       departure: [''],
-      destination: [''],
+      destination: [this.destination],
       status: [''],
       minPrice: ['', Validators.pattern('^\d{1,3}(?:\.\d{1,2})?$')],
       maxPrice: ['', Validators.pattern('^\d{1,3}(?:\.\d{1,2})?$')]
@@ -58,37 +65,46 @@ export class RideComponent implements OnInit, OnDestroy {
   stopCountdown(): void {
     this.countdownSubscriptions.forEach(subscription => subscription.unsubscribe());
     this.countdownSubscriptions = [];
-    this.countdown = { days: 0, hours: 0, minutes: 0, seconds: 0 };
+    this.countdown = {days: 0, hours: 0, minutes: 0, seconds: 0};
   }
 
   getRides(page: any, size: any) {
     this.stopCountdown();
 
-    this.rideService.getLatestRides(page - 1, size).subscribe((res: any) => {
-      this.rides = res.rides;
-      this.totalItems = res.totalElements;
-      this.rides.forEach(ride => this.startCountdown(ride.departureDate));
-    });
+    if (this.destination) {
+      this.rideService.search(this.destination).subscribe(
+        (res: any) => {
+          this.rides = res.rides;
+          this.totalItems = res.totalElements;
+          this.rides.forEach(ride => this.startCountdown(ride.departureDate));
+        });
+    } else {
+      this.rideService.getLatestRides(page - 1, size).subscribe((res: any) => {
+        this.rides = res.rides;
+        this.totalItems = res.totalElements;
+        this.rides.forEach(ride => this.startCountdown(ride.departureDate));
+      });
+    }
   }
 
   startCountdown(dateDep: Date): void {
     const countdownDate = new Date(dateDep);
-    this.countdown = { days: 0, hours: 0, minutes: 0, seconds: 0 };
-  
+    this.countdown = {days: 0, hours: 0, minutes: 0, seconds: 0};
+
     this.stopCountdown();
-  
+
     const subscription: Subscription = this.countdownService.startCountdown(countdownDate).subscribe(distance => {
       const days = Math.floor(distance / (1000 * 60 * 60 * 24));
       const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-  
-      this.countdown = { days, hours, minutes, seconds };
+
+      this.countdown = {days, hours, minutes, seconds};
     });
-  
+
     this.countdownSubscriptions.push(subscription);
   }
-  
+
   request(id: number) {
     this.rideRequestService.applyForRide(id).subscribe(
       (res: any) => {
@@ -107,21 +123,23 @@ export class RideComponent implements OnInit, OnDestroy {
         this.rideFilterForm.value['minPrice'],
         this.rideFilterForm.value['maxPrice']
       ), this.currentPage - 1, this.itemsPerPage).subscribe(
-        (res: any) => {
-          if (res.http_code != 200)
-            console.log("Erreur");
-          else
-            this.rides = res.rides
-        }
-      )
+      (res: any) => {
+        if (res.http_code != 200)
+          console.log("Erreur");
+        else
+          this.rides = res.rides
+      }
+    )
   }
+
   get totalPages(): number {
     return Math.ceil(this.totalItems / this.itemsPerPage);
   }
 
   get pages(): number[] {
-    return Array.from({ length: this.totalPages }, (_, index) => index + 1);
+    return Array.from({length: this.totalPages}, (_, index) => index + 1);
   }
+
   previousPage(): void {
     if (this.currentPage > 1) {
       this.currentPage--;

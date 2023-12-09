@@ -49,15 +49,14 @@ export class RideService {
 
   search(destination: string) {
 
-      this.filterRides(
+      return this.filterRides(
         new FilterRideRequest(
           this.localService.getData("address"),
           destination,
           '',
           '',
           '',
-        ), 0, 10).subscribe(res=>console.log(res));
-    console.log(this.localService.getData("address"))
+        ), 0, 10);
   }
 
   getLatestRides(page: number, size: number): Observable<Ride[]> {
