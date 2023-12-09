@@ -39,6 +39,6 @@ export class HeaderComponent {
     this.router.navigate([targetDashboard]);
   }
   shouldDisplaySwitchButton(): boolean {
-    return this.authService.getRoles().length === 2;
+    return this.authService.getToken() ? this.authService.getRoles().length === 2 : false;
   }
 }

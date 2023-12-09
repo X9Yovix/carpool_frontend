@@ -30,7 +30,10 @@ import { AppliedRidesComponent } from './components/user/applied-rides/applied-r
 import { ListDriverRidesComponent } from './components/driver/list-driver-rides/list-driver-rides.component';
 import { HomeComponent } from './components/shareed/home/home.component';
 import { MyItemsTabsComponent } from './components/driver/my-items-tabs/my-items-tabs.component';
-import { CreateTabsComponent } from './components/driver/create-tabs/create-tabs.component';// Import ReactiveFormsModule
+import { CreateTabsComponent } from './components/driver/create-tabs/create-tabs.component';
+import { ProfileInfoComponent } from './components/user/profile-info/profile-info.component';
+import { AccountSettingsComponent } from './components/account-settings/account-settings.component';
+import { ProfileInfoDriverComponent } from './components/driver/profile-info-driver/profile-info-driver.component';// Import ReactiveFormsModule
 
 @NgModule({
   declarations: [
@@ -56,6 +59,9 @@ import { CreateTabsComponent } from './components/driver/create-tabs/create-tabs
     HomeComponent,
     MyItemsTabsComponent,
     CreateTabsComponent,
+    ProfileInfoComponent,
+    AccountSettingsComponent,
+    ProfileInfoDriverComponent,
 
   ],
     imports: [

@@ -21,6 +21,7 @@ import { ListDriverRidesComponent } from "./components/driver/list-driver-rides/
 import { HomeComponent } from './components/shareed/home/home.component';
 import { MyItemsTabsComponent } from './components/driver/my-items-tabs/my-items-tabs.component';
 import { CreateTabsComponent } from './components/driver/create-tabs/create-tabs.component';
+import { ProfileInfoComponent } from './components/user/profile-info/profile-info.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -54,6 +55,7 @@ const routes: Routes = [
       { path: 'my-items/:tab', component: MyItemsTabsComponent },
       { path: 'create', redirectTo: 'create/ride', pathMatch: 'full' },
       { path: 'create/:tab', component: CreateTabsComponent },
+      { path: 'profile', component: ProfileInfoComponent },
     ]
   },
   {
@@ -67,9 +69,10 @@ const routes: Routes = [
       { path: '', redirectTo: 'rides', pathMatch: 'full' },
       { path: 'rides', component: RideComponent },
       { path: 'applied-rides', component: AppliedRidesComponent },
-
+      { path: 'profile', component: ProfileInfoComponent },
     ]
   },
+  
   { path: '**', component: NotFoundComponent }
 ];
 

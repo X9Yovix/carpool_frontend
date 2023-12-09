@@ -140,6 +140,7 @@ export class AuthService {
             this.localService.saveData('first-name', res.firstName);
             this.localService.saveData('last-name', res.lastName);
             this.localService.saveData('imgUrl', res.imgUrl);
+            this.localService.saveData('phoneNumber', res.phoneNumber);
             this.toastrService.success(res.message);
             this.navigate();
           }
