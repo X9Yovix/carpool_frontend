@@ -32,4 +32,13 @@ export class HeaderComponent {
     else
       this.router.navigate(['/rides', {destination:this.destination}]);
   }
+
+  switchDashboard() {
+    const currentRoute = this.router.url;
+    const targetDashboard = currentRoute.includes('/driver') ? '/user' : '/driver';
+    this.router.navigate([targetDashboard]);
+  }
+  shouldDisplaySwitchButton(): boolean {
+    return this.authService.getRoles().length === 2;
+  }
 }

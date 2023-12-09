@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
 
 
   ngOnInit() {
-    this.router.events.subscribe((event) => {
+    /* this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         this.loadJSandCssFiles();
       } else if (
@@ -28,9 +28,10 @@ export class AppComponent implements OnInit {
         event instanceof NavigationCancel ||
         event instanceof NavigationError
       ) {
+        this.loadJSandCssFiles();
       }
     });
-
+ */
 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {

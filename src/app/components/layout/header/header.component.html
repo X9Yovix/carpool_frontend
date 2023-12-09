@@ -6,6 +6,7 @@
                 <div class="cs-main_header_left">
                     <a class="cs-site_branding" routerLink="/"><img src="/assets/img/logo_resize.png" alt="Logo"></a>
                 </div>
+                <div *ngIf="shouldDisplaySwitchButton()" (click)="switchDashboard()" class="mr-3 cs-btn cs-style1" style="background-color: #324959;"><span><i class="fas fa-sync-alt fa-sm"></i> Switch Dashboard</span></div>
                 <div class="cs-main_header_right">
                     <div class="cs-nav_wrap">
                         <div class="cs-nav_out">

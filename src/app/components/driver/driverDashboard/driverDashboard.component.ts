@@ -26,5 +26,6 @@ export class DriverDashboardComponent implements OnInit {
     this.firstName = this.localService.getData('first-name');
     this.lastName = this.localService.getData('last-name');
     this.imgUrl = this.imgUrl + this.localService.getData('imgUrl');
+    console.log(this.authService.getRoles())
   }
 }

@@ -14,12 +14,12 @@
 <!-- CreateTabsComponent template -->
 <div>
     <!--TAB ADD Rides -->
-    <div *ngIf="selectedTab !== 'ride'" [@tabAnimation]="''">
+    <div *ngIf="selectedTab === 'ride'" [@tabAnimation]="''">
         <app-add-ride></app-add-ride>
     </div>
 
     <!--TAB ADD Cars -->
-    <div *ngIf="selectedTab !== 'car'" [@tabAnimation]="''">
+    <div *ngIf="selectedTab === 'car'" [@tabAnimation]="''">
         <app-add-car></app-add-car>
     </div>
 </div>
