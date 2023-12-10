@@ -43,6 +43,7 @@ const routes: Routes = [
       role: 'ADMIN'
     },
     children:[
+      {path: '',component: StatisticsComponent},
       {path: 'statistics',component: StatisticsComponent},
       {path:'profile',component: ProfileInfoComponent},
       {path:'settings',component: AccountSettingsUserComponent}
