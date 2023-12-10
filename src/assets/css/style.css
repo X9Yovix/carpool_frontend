@@ -4779,10 +4779,15 @@ kbd {
 
 .cs-site_header.cs-sticky-header {
   position: fixed;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   z-index: 200;
   width: 100%;
   top: 0;
   left: 0;
+}
+
+body.cs-dark .cs-site_header.cs-sticky-header {
+  box-shadow: none;
 }
 
 .cs-site_branding {
