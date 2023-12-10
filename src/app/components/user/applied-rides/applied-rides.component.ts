@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {RideRequestService} from "../../../services/ride/ride-request.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-applied-rides',
@@ -12,7 +13,7 @@ export class AppliedRidesComponent implements OnInit{
   currentPage: number = 1;
   status="";
   rides!: any[];
-  constructor(private requestRideService:RideRequestService) {
+  constructor(private toasterService:ToastrService,private requestRideService:RideRequestService) {
   }
 
   ngOnInit(): void {
@@ -67,5 +68,19 @@ export class AppliedRidesComponent implements OnInit{
       this.currentPage = pageNumber;
       this.getRequestedRidesFromPassenger(this.currentPage, this.itemsPerPage)
     }
+  }
+
+  cancelRide(ride: any) {
+    this.rides=this.rides.filter((r)=>r!=ride);
+    this.requestRideService.cancelRide(ride.id).subscribe(
+        (res:any) => {
+          if (res.http_code === 200) {
+            this.toasterService.success(res.message);
+          }
+          else {
+            this.toasterService.error(res.errors);
+          }
+        }
+    )
   }
 }

@@ -29,15 +29,19 @@
                 <div style="text-align: center;">
                   PENDING
                 </div>
-              </div>
+            </div>
 
             </div>
             <div class="cs-activity_right">
               <p class="cs-activity_text">Departure: <span>{{ ride.departureLocation }} </span> | Destination <span>{{
-                  ride.destinationLocation }}</span> <b> | at {{ ride.departureDate | date:'short' }}</b></p>
+                ride.destinationLocation }}</span> <b> | at {{ ride.departureDate | date:'short' }}</b></p>
               <p class="cs-activity_posted_by">Request at <b style="color:yellowgreen">{{ ride.requestDate|
-                  date:'short' }} and this ride is {{ ride.statusRide }}</b>
+                date:'short' }} and this ride is {{ ride.statusRide }}</b>
               </p>
+            </div>
+
+            <div class="cs-activity_cancel_button">
+              <button (click)="cancelRide(ride)" class="btn btn-danger">Cancel</button>
             </div>
           </div>
         </li>
