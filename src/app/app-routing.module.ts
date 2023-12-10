@@ -1,30 +1,28 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { AdminDashboardComponent } from './components/admin/adminDashboard/adminDashboard.component';
-import { UserDashboardComponent } from './components/user/userDashboard/userDashboard.component';
-import { NotFoundComponent } from './components/shareed/NotFound/NotFound.component';
-import { DriverDashboardComponent } from './components/driver/driverDashboard/driverDashboard.component';
-import { AuthGuard } from './guards/Auth-guard';
-import { LoginComponent } from './components/auth/login/login.component';
-import { RegisterComponent } from './components/auth/register/register.component';
-import { CheckEmailComponent } from './components/auth/check-email/check-email.component';
-import { ForgotPasswordComponent } from "./components/auth/forgot-password/forgot-password.component";
-import { ResetPasswordComponent } from "./components/auth/reset-password/reset-password.component";
-import { VerifyAccountComponent } from "./components/auth/verify-account/verify-account.component";
-import { AddRideComponent } from "./components/driver/add-ride/add-ride.component";
-import { RideComponent } from "./components/user/ride/ride.component";
-import { AddCarComponent } from "./components/driver/add-car/add-car.component";
-import { ListCarsComponent } from "./components/driver/list-cars/list-cars.component";
-import { RequestedRidesComponent } from "./components/driver/requested-rides/requested-rides.component";
-import { AppliedRidesComponent } from "./components/user/applied-rides/applied-rides.component";
-import { ListDriverRidesComponent } from "./components/driver/list-driver-rides/list-driver-rides.component";
-import { HomeComponent } from './components/shareed/home/home.component';
-import { MyItemsTabsComponent } from './components/driver/my-items-tabs/my-items-tabs.component';
-import { CreateTabsComponent } from './components/driver/create-tabs/create-tabs.component';
-import { ProfileInfoComponent } from './components/user/profile-info/profile-info.component';
-import { ProfileInfoDriverComponent } from './components/driver/profile-info-driver/profile-info-driver.component';
-import { AccountSettingsUserComponent } from './components/user/account-settings-user/account-settings-user.component';
-import { AccountSettingsDriverComponent } from './components/driver/account-settings-driver/account-settings-driver.component';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {AdminDashboardComponent} from './components/admin/adminDashboard/adminDashboard.component';
+import {UserDashboardComponent} from './components/user/userDashboard/userDashboard.component';
+import {NotFoundComponent} from './components/shareed/NotFound/NotFound.component';
+import {DriverDashboardComponent} from './components/driver/driverDashboard/driverDashboard.component';
+import {AuthGuard} from './guards/Auth-guard';
+import {LoginComponent} from './components/auth/login/login.component';
+import {RegisterComponent} from './components/auth/register/register.component';
+import {CheckEmailComponent} from './components/auth/check-email/check-email.component';
+import {ForgotPasswordComponent} from "./components/auth/forgot-password/forgot-password.component";
+import {ResetPasswordComponent} from "./components/auth/reset-password/reset-password.component";
+import {VerifyAccountComponent} from "./components/auth/verify-account/verify-account.component";
+import {RideComponent} from "./components/user/ride/ride.component";
+import {AppliedRidesComponent} from "./components/user/applied-rides/applied-rides.component";
+import {HomeComponent} from './components/shareed/home/home.component';
+import {MyItemsTabsComponent} from './components/driver/my-items-tabs/my-items-tabs.component';
+import {CreateTabsComponent} from './components/driver/create-tabs/create-tabs.component';
+import {ProfileInfoComponent} from './components/user/profile-info/profile-info.component';
+import {ProfileInfoDriverComponent} from './components/driver/profile-info-driver/profile-info-driver.component';
+import {AccountSettingsUserComponent} from './components/user/account-settings-user/account-settings-user.component';
+import {
+  AccountSettingsDriverComponent
+} from './components/driver/account-settings-driver/account-settings-driver.component';
+import {StatisticsComponent} from "./components/admin/statistics/statistics.component";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -43,7 +41,13 @@ const routes: Routes = [
     canActivateChild: [AuthGuard],
     data: {
       role: 'ADMIN'
-    }
+    },
+    children:[
+      {path: 'statistics',component: StatisticsComponent},
+      {path:'profile',component: ProfileInfoComponent},
+      {path:'settings',component: AccountSettingsUserComponent}
+
+    ]
   },
   {
     path: 'driver', component: DriverDashboardComponent,
@@ -77,7 +81,7 @@ const routes: Routes = [
       { path: 'settings', component: AccountSettingsUserComponent },
     ]
   },
-  
+
   { path: '**', component: NotFoundComponent }
 ];
 

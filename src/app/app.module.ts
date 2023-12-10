@@ -31,10 +31,17 @@ import { ListDriverRidesComponent } from './components/driver/list-driver-rides/
 import { HomeComponent } from './components/shareed/home/home.component';
 import { MyItemsTabsComponent } from './components/driver/my-items-tabs/my-items-tabs.component';
 import { CreateTabsComponent } from './components/driver/create-tabs/create-tabs.component';
-import { ProfileInfoComponent } from './components/user/profile-info/profile-info.component';
-import { ProfileInfoDriverComponent } from './components/driver/profile-info-driver/profile-info-driver.component';
-import { AccountSettingsDriverComponent } from './components/driver/account-settings-driver/account-settings-driver.component';
-import { AccountSettingsUserComponent } from './components/user/account-settings-user/account-settings-user.component';// Import ReactiveFormsModule
+import { StatisticsComponent } from './components/admin/statistics/statistics.component';
+import {AccountSettingsUserComponent} from "./components/user/account-settings-user/account-settings-user.component";
+import {ProfileInfoDriverComponent} from "./components/driver/profile-info-driver/profile-info-driver.component";
+import {
+  AccountSettingsDriverComponent
+} from "./components/driver/account-settings-driver/account-settings-driver.component";
+import {AdminDashboardComponent} from "./components/admin/adminDashboard/adminDashboard.component";
+import {ProfileInfoComponent} from "./components/user/profile-info/profile-info.component";
+import {NgChartsModule} from "ng2-charts";
+
+// Import ReactiveFormsModule
 
 @NgModule({
   declarations: [
@@ -60,15 +67,17 @@ import { AccountSettingsUserComponent } from './components/user/account-settings
     HomeComponent,
     MyItemsTabsComponent,
     CreateTabsComponent,
-    ProfileInfoComponent,
+    StatisticsComponent,
+    AccountSettingsUserComponent,
     ProfileInfoDriverComponent,
     AccountSettingsDriverComponent,
-    AccountSettingsUserComponent,
-
+    AdminDashboardComponent,
+    ProfileInfoComponent
   ],
     imports: [
         ToastrModule.forRoot(),
         BrowserModule,
+      NgChartsModule,
         AppRoutingModule,
         BrowserAnimationsModule,
         HttpClientModule,
